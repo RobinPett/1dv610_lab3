@@ -1,0 +1,11 @@
+{
+  "name": "1dv610_lab3",
+  "version": "1.0.0",
+  "description": "A webapp that handles colorpalettes",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Robin Pettersson",
+  "license": "MIT"
+}
