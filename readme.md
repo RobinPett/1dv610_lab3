@@ -1,2 +1,2 @@
-## Color palette Webapp
+## Color palette - Webapp
 
