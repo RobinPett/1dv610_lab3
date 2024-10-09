@@ -29,13 +29,20 @@ template.innerHTML = `
         }
 
         #image-uploader:hover #upload-icon {
-            width: 55%;
+            width: 25%;
+            filter: opacity(100%);
         }
 
         #upload-icon {
-            width: 50%;
+            width: 20%;
             margin: auto;
+            filter: opacity(50%);
             transition: 0.2s;
+        }
+
+        #image img{
+            width: 50%;
+            height: auto;
         }
 
     </style>
@@ -44,7 +51,13 @@ template.innerHTML = `
         <div id="image-uploader">
             <img src="${uploadIcon}" alt="upload icon" id="upload-icon"/>
             <p>Upload image</p>
+
+            <form>
+                <input type="file" id="imageInput" accept="image/*" visibility=false>
+            </form>
         </div>
+
+        <div id="image"></div>
        
     </html>
 `
@@ -52,6 +65,8 @@ template.innerHTML = `
 customElements.define('image-uploader',
     class extends HTMLElement {
         #imageUploader
+        
+        #image
 
         constructor() {
             super()
@@ -63,20 +78,78 @@ customElements.define('image-uploader',
 
             // Get element in shadow root
             this.#imageUploader = this.shadowRoot.querySelector('#image-uploader')
+            this.#image = this.shadowRoot.querySelector('#image')
         }
 
         /**
          * Called when component is connected to the DOM
          */
         connectedCallback() {
-
+            this.#preventDefaultBehaviour()
+            this.#imageUploader.addEventListener('dragenter', (event) => this.#handleDragOver(event))
+            this.#imageUploader.addEventListener('drop', (event) => this.#handleDrop(event))
+            this.#imageUploader.addEventListener('dragleave', (event) => this.#handleDragLeave(event))
         }
 
         /**
          * Called when component is disconnected from the DOM
          */
         disconnectedCallback() {
+        }
 
+        /**
+         * Prevent the browser to do anything with items dragged or dropped in this component.
+         */
+        #preventDefaultBehaviour() {
+           const events =  ['dragenter', 'dragover', 'dragleave', 'drop']
+
+           events.forEach(event => {
+                this.#imageUploader.addEventListener(event, this.#preventDefaults, false)
+           })
+        }
+
+        #preventDefaults(event) {
+            event.preventDefault()
+            event.stopPropagation()
+        }
+
+        #handleDragOver() {
+            console.log('Set styling')
+        }
+
+        #handleDrop(event) {
+            console.log('DROP EVENT')
+            const filesDropped = event.dataTransfer.items
+
+            if (filesDropped) {
+                // Check if lenght is over 1 ? === more than one image dropped
+                // Check type!
+
+                const rawFile = filesDropped[0]
+                const file = rawFile.getAsFile()
+
+
+
+                const reader = new FileReader()
+                reader.readAsDataURL(file)
+                reader.onloadend = () => {
+                    const img = document.createElement('img')
+                    img.src = reader.result
+        
+                    this.#image.appendChild(img)
+    
+                }
+                // File reader
+                // reader.readAsDataURL(file)
+
+            }
+        }
+        
+        #handleLoadedFile(reader) {
+        }
+
+        #handleDragLeave() {
+            console.log('Set styling back to original')
         }
 
 
