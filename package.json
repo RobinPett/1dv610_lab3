@@ -4,7 +4,8 @@
   "description": "A webapp that handles colorpalettes",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "dev": "vite"
   },
   "author": "Robin Pettersson",
   "license": "MIT",
