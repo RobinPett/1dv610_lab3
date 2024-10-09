@@ -11,7 +11,6 @@
 > Färgpaletter ska kunna sparas i webbläsaren.
 
 
-
 ## 2\. Ickefunktionella produktkrav (non-functional product requirements)
 
 > Applikationen ska vara användarvänlig och enkel med ett grafiskt gränssnitt.
