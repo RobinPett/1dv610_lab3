@@ -7,10 +7,10 @@ const template = document.createElement('template')
 
 template.innerHTML = `
     <style>
-            #image-presenter img{
-                width: 50%;
-                height: auto;
-                margin: 2em;
+        #image-presenter img{
+            width: 50%;
+            height: auto;
+            margin: 2em;
         }
     </style>
 
@@ -36,6 +36,11 @@ customElements.define('image-presenter',
             this.#imagePresenter = this.shadowRoot.querySelector('#image-presenter')
         }
 
+        /**
+         * Setter for image file.
+         * 
+         * @param {File} file
+         */
         set image(file) {
             if (file instanceof File) {
                 this.#parseImage(file)
