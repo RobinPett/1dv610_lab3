@@ -122,13 +122,14 @@ customElements.define('image-uploader',
             const filesDropped = event.dataTransfer.items
 
             if (filesDropped) {
-                // Check if lenght is over 1 ? === more than one image dropped
-                // Check type!
+                const rawFile = filesDropped[0] // 1st file
 
-                const rawFile = filesDropped[0]
+                this.#checkFileValidity(rawFile)
+
                 const file = rawFile.getAsFile()
 
-
+                const fileDroppedEvent = new window.CustomEvent('file-dropped', { detail: file, bubbles: true })
+                this.dispatchEvent(fileDroppedEvent)
 
                 const reader = new FileReader()
                 reader.readAsDataURL(file)
@@ -139,13 +140,18 @@ customElements.define('image-uploader',
                     this.#image.appendChild(img)
     
                 }
-                // File reader
-                // reader.readAsDataURL(file)
-
             }
         }
-        
-        #handleLoadedFile(reader) {
+
+        /**
+         * Check if file is an image.
+         * 
+         * @param {object} rawFile 
+         */
+        #checkFileValidity(rawFile) {
+            if (!rawFile.type.startsWith('image/')) {
+                throw new TypeError('File must be an image')
+            }
         }
 
         #handleDragLeave() {
