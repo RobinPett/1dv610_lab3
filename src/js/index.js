@@ -2,10 +2,8 @@
  * Main Javascript file.
  */
 
-// Test
+import './components/color-companion-application'
 
-import './components/image-uploader'
-
-const colorCompanion = document.querySelector('#color-companion')
+const colorCompanion = document.querySelector('#color-companion-container')
 
 console.log(colorCompanion)
