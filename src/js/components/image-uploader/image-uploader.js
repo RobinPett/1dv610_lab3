@@ -130,16 +130,6 @@ customElements.define('image-uploader',
 
                 const fileDroppedEvent = new window.CustomEvent('file-dropped', { detail: file, bubbles: true })
                 this.dispatchEvent(fileDroppedEvent)
-
-                const reader = new FileReader()
-                reader.readAsDataURL(file)
-                reader.onloadend = () => {
-                    const img = document.createElement('img')
-                    img.src = reader.result
-        
-                    this.#image.appendChild(img)
-    
-                }
             }
         }
 

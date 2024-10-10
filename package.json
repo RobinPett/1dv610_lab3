@@ -12,5 +12,8 @@
   "license": "MIT",
   "devDependencies": {
     "vite": "^5.4.8"
+  },
+  "dependencies": {
+    "color-palette-extractor": "^1.0.2"
   }
 }

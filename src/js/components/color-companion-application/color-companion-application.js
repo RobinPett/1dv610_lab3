@@ -3,6 +3,7 @@
  */
 
 import '../image-uploader'
+import '../image-presenter'
 
 // Define html template
 const template = document.createElement('template')
@@ -29,6 +30,8 @@ customElements.define('color-companion-application',
 
         #imageUploader
 
+        #imagePresenter
+
         constructor() {
             super()
 
@@ -49,13 +52,24 @@ customElements.define('color-companion-application',
         connectedCallback() {
             console.log('ColorCompanion connected to browser')
 
-            this.#imageUploader.addEventListener('file-dropped', (event) => console.log(event))
+            this.#imageUploader.addEventListener('file-dropped', (event) => this.#handleDroppedFile(event))
         }
 
         /**
          * Called when component is disconnected from the DOM
          */
         disconnectedCallback() {
+        }
+
+        #handleDroppedFile(event) {
+            console.log('Handle drop event')
+            const file = event.detail
+
+            this.#imagePresenter = document.createElement('image-presenter')
+            this.#imagePresenter.image = file
+
+            this.#colorCompanionApp.appendChild(this.#imagePresenter)
+
         }
 
     }
