@@ -24,6 +24,10 @@ customElements.define('image-presenter',
     class extends HTMLElement {
         #imagePresenter
 
+        #image
+
+        #imageElement
+
         constructor() {
             super()
 
@@ -37,25 +41,52 @@ customElements.define('image-presenter',
         }
 
         /**
-         * Setter for image file.
+         * Setter image and process it.
          * 
          * @param {File} file
          */
         set image(file) {
             if (file instanceof File) {
-                this.#parseImage(file)
+                this.#image = file
+                this.#processImage()
             }
         }
 
-        #parseImage(file) {
-            const reader = new FileReader()
-            reader.readAsDataURL(file)
-            reader.onloadend = () => {
-                const img = document.createElement('img')
-                img.src = reader.result
-
-                this.#imagePresenter.appendChild(img)
+        async #processImage() {
+            try {
+                await this.#getImageElement()
+                this.#presentImage()
+                this.#sendImageEvent()
+            } catch (error) {
+                console.error('Failed to present image: ' + error)
             }
+        }
+
+        #getImageElement(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader()
+                reader.readAsDataURL(this.#image)
+                reader.onloadend = () => {
+                    this.#imageElement = document.createElement('img')
+                    this.#imageElement.src = reader.result
+
+                    resolve()
+                }
+
+                reader.onerror = () => reject(new Error('Failed to read image file'))
+            })
+
+        }
+
+        #presentImage() {
+            this.#imagePresenter.appendChild(this.#imageElement)
+        }
+
+        #sendImageEvent () {
+            console.log('Creating image event')
+            const parsedImageEvent = new window.CustomEvent('parsed-image', { detail: this.#imageElement, bubbles: true })
+            console.log(parsedImageEvent)
+            this.dispatchEvent(parsedImageEvent)
         }
 
         /**

@@ -53,6 +53,8 @@ customElements.define('color-companion-application',
             console.log('ColorCompanion connected to browser')
 
             this.#imageUploader.addEventListener('file-dropped', (event) => this.#handleDroppedFile(event))
+        
+            this.#colorCompanionApp.addEventListener('parsed-image', (event) => this.#handleParsedImage(event))
         }
 
         /**
@@ -70,6 +72,11 @@ customElements.define('color-companion-application',
 
             this.#colorCompanionApp.appendChild(this.#imagePresenter)
 
+        }
+
+        #handleParsedImage(event) {
+            console.log('Handle parsed image event')
+            const imageElement = event.detail
         }
 
     }
