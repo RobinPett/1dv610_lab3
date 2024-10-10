@@ -78,7 +78,7 @@ customElements.define('image-presenter',
 
         }
 
-        #presentImage() {
+        #presentImage() {            
             this.#imagePresenter.appendChild(this.#imageElement)
         }
 

@@ -67,10 +67,30 @@ customElements.define('color-companion-application',
             console.log('Handle drop event')
             const file = event.detail
 
+            if (this.#isAlreadyPresentsImage()) {
+                this.#removeImage()
+            }
+
+            // Create new presenter
             this.#imagePresenter = document.createElement('image-presenter')
             this.#imagePresenter.image = file
-
             this.#colorCompanionApp.appendChild(this.#imagePresenter)
+
+        }
+
+        /**
+         * Check for already existing image-presenter.
+         *
+         * @returns {boolean}
+         */
+        #isAlreadyPresentsImage() {
+            if (this.#colorCompanionApp.querySelector('image-presenter')) return true
+            return false
+        }
+
+        #removeImage() {
+            const presenter = this.#colorCompanionApp.querySelector('image-presenter')
+            this.#colorCompanionApp.removeChild(presenter)
 
         }
 
