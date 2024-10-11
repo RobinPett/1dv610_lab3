@@ -4,6 +4,7 @@
 
 import '../image-uploader'
 import '../image-presenter'
+import '../palette-extractor'
 
 // Define html template
 const template = document.createElement('template')
@@ -32,6 +33,8 @@ customElements.define('color-companion-application',
 
         #imagePresenter
 
+        #paletteExtractor
+
         constructor() {
             super()
 
@@ -53,8 +56,8 @@ customElements.define('color-companion-application',
             console.log('ColorCompanion connected to browser')
 
             this.#imageUploader.addEventListener('file-dropped', (event) => this.#handleDroppedFile(event))
-        
             this.#colorCompanionApp.addEventListener('parsed-image', (event) => this.#handleParsedImage(event))
+            this.#colorCompanionApp.addEventListener('created-palette', (event) => this.#handleCreatedPalette(event))
         }
 
         /**
@@ -94,9 +97,30 @@ customElements.define('color-companion-application',
 
         }
 
+        /**
+         * Handle when an image has been parced ---- CHANGE NAME?!?! EXTRACTPALETTE ?!
+         * 
+         * @param {*} event 
+         */
         #handleParsedImage(event) {
             console.log('Handle parsed image event')
             const imageElement = event.detail
+            
+            this.#paletteExtractor = document.createElement('palette-extractor')
+            this.#paletteExtractor.imageElement = imageElement
+            
+
+            this.#colorCompanionApp.appendChild(this.#paletteExtractor)
+        }
+
+        /**
+         * Handles color palette event. ------ CHANGE!!!!
+         */
+        #handleCreatedPalette(event) {
+            console.log('Handle created palette event')
+            const palette = event.detail
+
+            console.log(palette)
         }
 
     }

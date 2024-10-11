@@ -605,6 +605,9 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 
+# VS Code Counter plugin
+.VSCodeCounter
+
 ### VisualStudio Patch ###
 # Additional files built by Visual Studio
 

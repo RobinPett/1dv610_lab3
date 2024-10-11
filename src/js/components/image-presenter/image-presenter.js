@@ -1,5 +1,5 @@
 /**
- * Image uplaoder component.
+ * Image presenter component.
  */
 
 // Define html template
