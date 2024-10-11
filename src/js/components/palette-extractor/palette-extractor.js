@@ -28,6 +28,8 @@ customElements.define('palette-extractor',
 
         #extractedColors
 
+        #palette
+
         constructor() {
             super()
 
@@ -68,8 +70,8 @@ customElements.define('palette-extractor',
             const image = this.#paletteExtractorModule.loadImage(imageUrl)
             const pixels = await image.getPixels()
 
-            const palette = this.#paletteExtractorModule.startExtraction(pixels, 5)
-            const extractedPalette = palette.getColorPalette()
+            this.#palette = this.#paletteExtractorModule.startExtraction(pixels, 5)
+            const extractedPalette = this.#palette.getColorPalette()
 
             return extractedPalette
         }
@@ -79,6 +81,26 @@ customElements.define('palette-extractor',
             const paletteEvent = new window.CustomEvent('created-palette', { detail: this.#extractedColors, bubbles: true })
             this.dispatchEvent(paletteEvent)
         }
+
+        getNewPalette(palette) {
+            if (palette === 'default') {
+                return this.#palette.getColorPalette()
+            }
+
+            if (palette === 'bright') {
+                return this.#palette.getBrightPalette()
+            }
+
+            if (palette === 'dark') {
+                return this.#palette.getDarkPalette()
+            }
+
+            if (palette === 'muted') {
+                return this.#palette.getMutedPalette()
+            }
+        }
+
+        
 
 
 

@@ -84,8 +84,6 @@ customElements.define('color-companion-application',
 
             this.#clearImageAndPalette()
 
-
-
             // Create new presenter
             this.#imagePresenter = document.createElement('image-presenter')
             this.#imagePresenter.image = file
@@ -103,6 +101,14 @@ customElements.define('color-companion-application',
             if (this.#isAlreadyDisplayingComponent(imageComponent)) {
                 this.#removeComponent(imageComponent)
             }
+
+            if (this.#isAlreadyDisplayingComponent(paletteComponent)) {
+                this.#removeComponent(paletteComponent)
+            }
+        }
+
+        #clearPalette() {
+            const paletteComponent = 'palette-presenter'
 
             if (this.#isAlreadyDisplayingComponent(paletteComponent)) {
                 this.#removeComponent(paletteComponent)
@@ -144,6 +150,10 @@ customElements.define('color-companion-application',
             console.log('Handle created palette event')
             const palette = event.detail
 
+            this.#createPalettePresenter(palette)
+        }
+
+        #createPalettePresenter(palette) {
             this.#palettePresenter = document.createElement('palette-presenter')
             this.#palettePresenter.colorPalette = palette
 
@@ -152,7 +162,16 @@ customElements.define('color-companion-application',
 
         #getNewPalette(event) {
             const newPalette = event.detail
+            let newExtractedPalette
             console.log(newPalette)
+
+            if (this.#paletteExtractor) {
+               newExtractedPalette = this.#paletteExtractor.getNewPalette(newPalette)
+            }
+
+            this.#clearPalette()
+
+            this.#createPalettePresenter(newExtractedPalette)
         }
     }
 )
