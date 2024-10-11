@@ -79,9 +79,9 @@ customElements.define('color-companion-application',
             console.log('Handle drop event')
             const file = event.detail
 
-            if (this.#isAlreadyPresentingImage()) {
-                this.#removeImage()
-            }
+            this.#clearImageAndPalette()
+
+
 
             // Create new presenter
             this.#imagePresenter = document.createElement('image-presenter')
@@ -91,18 +91,31 @@ customElements.define('color-companion-application',
         }
 
         /**
-         * Check for already existing image-presenter.
-         *
-         * @returns {boolean}
+         * Clear previous image and palette from application.
          */
-        #isAlreadyPresentingImage() {
-            if (this.#colorCompanionApp.querySelector('image-presenter')) return true
+        #clearImageAndPalette() {
+            const paletteComponent = 'palette-presenter'
+            const imageComponent = 'image-presenter'
+
+            if (this.#isAlreadyDisplayingComponent(imageComponent)) {
+                this.#removeComponent(imageComponent)
+            }
+
+            if (this.#isAlreadyDisplayingComponent(paletteComponent)) {
+                this.#removeComponent(paletteComponent)
+            }
+        }
+
+        #isAlreadyDisplayingComponent(component) {
+            if (this.#colorCompanionApp.querySelector(component)) return true
             return false
         }
 
-        #removeImage() {
-            const presenter = this.#colorCompanionApp.querySelector('image-presenter')
-            this.#colorCompanionApp.removeChild(presenter)
+        #removeComponent(component) {
+            const componentElement = this.#colorCompanionApp.querySelector(component)
+            if (componentElement) {
+                this.#colorCompanionApp.removeChild(componentElement)
+            }
         }
 
         /**
@@ -113,10 +126,10 @@ customElements.define('color-companion-application',
         #handleParsedImage(event) {
             console.log('Handle parsed image event')
             const imageElement = event.detail
-            
+
             this.#paletteExtractor = document.createElement('palette-extractor')
             this.#paletteExtractor.imageElement = imageElement
-            
+
 
             this.#colorCompanionApp.appendChild(this.#paletteExtractor)
         }
@@ -128,29 +141,10 @@ customElements.define('color-companion-application',
             console.log('Handle created palette event')
             const palette = event.detail
 
-            // TODO - Method for checking if component already exists
-
-            console.log(this.#isAlreadyPresentingPalette())
-            if (this.#isAlreadyPresentingPalette()) {
-                this.#removePalette()
-            }
-
             this.#palettePresenter = document.createElement('palette-presenter')
             this.#palettePresenter.colorPalette = palette
-            
 
             this.#colorCompanionApp.appendChild(this.#palettePresenter)
         }
-
-        #isAlreadyPresentingPalette() {
-            if (this.#colorCompanionApp.querySelector('palette-presenter')) return true
-            return false
-        }
-
-        #removePalette() {
-            const presenter = this.#colorCompanionApp.querySelector('palette-presenter')
-            this.#colorCompanionApp.removeChild(presenter)
-        }
-
     }
 )
