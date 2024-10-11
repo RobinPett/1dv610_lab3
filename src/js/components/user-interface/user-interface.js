@@ -15,9 +15,9 @@ template.innerHTML = `
         <div id="user-interface">
             <div id="palette-selector">
                 <p>Select palette</p>
-                <button id="default-button">Muted</button>
-                <button id="bright-button">Muted</button>
-                <button id="dark-button">Muted</button>
+                <button id="default-button">Default</button>
+                <button id="bright-button">Bright</button>
+                <button id="dark-button">Dark</button>
                 <button id="muted-button">Muted</button>
             </div>
         </div>

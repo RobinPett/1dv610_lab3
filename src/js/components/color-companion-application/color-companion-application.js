@@ -12,6 +12,7 @@ import '../image-uploader'
 import '../image-presenter'
 import '../palette-extractor'
 import '../palette-presenter'
+import '../user-interface'
 
 // Define html template
 const template = document.createElement('template')
@@ -27,7 +28,8 @@ template.innerHTML = `
     <html>
         <div id="color-companion-app">
             <p>Main app</p>
-            <image-uploader id="image-uploader" />
+            <image-uploader id="image-uploader"> </image-uploader>
+            <user-interface id="ui" </user-interface>
         </div>
     </html>
 `
