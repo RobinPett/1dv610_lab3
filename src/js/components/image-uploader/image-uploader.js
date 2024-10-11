@@ -2,7 +2,7 @@
  * Image uplaoder component.
  */
 
-import uploadIcon from '../img/upload_icon.svg'
+import uploadIcon from './img/upload_icon.svg'
 
 // Define html template
 const template = document.createElement('template')
