@@ -2,6 +2,12 @@
  * Color Companion Main Application
  */
 
+// TODO
+// Add checks for already existing component in one single method
+// isAlreadyRendering(component)
+
+// Maybe clear palette-presenter and image-presenter at the same time? On drop event? 
+
 import '../image-uploader'
 import '../image-presenter'
 import '../palette-extractor'
@@ -97,7 +103,6 @@ customElements.define('color-companion-application',
         #removeImage() {
             const presenter = this.#colorCompanionApp.querySelector('image-presenter')
             this.#colorCompanionApp.removeChild(presenter)
-
         }
 
         /**
@@ -123,11 +128,28 @@ customElements.define('color-companion-application',
             console.log('Handle created palette event')
             const palette = event.detail
 
+            // TODO - Method for checking if component already exists
+
+            console.log(this.#isAlreadyPresentingPalette())
+            if (this.#isAlreadyPresentingPalette()) {
+                this.#removePalette()
+            }
+
             this.#palettePresenter = document.createElement('palette-presenter')
             this.#palettePresenter.colorPalette = palette
             
 
             this.#colorCompanionApp.appendChild(this.#palettePresenter)
+        }
+
+        #isAlreadyPresentingPalette() {
+            if (this.#colorCompanionApp.querySelector('palette-presenter')) return true
+            return false
+        }
+
+        #removePalette() {
+            const presenter = this.#colorCompanionApp.querySelector('palette-presenter')
+            this.#colorCompanionApp.removeChild(presenter)
         }
 
     }
