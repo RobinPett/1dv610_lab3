@@ -5,6 +5,7 @@
 import '../image-uploader'
 import '../image-presenter'
 import '../palette-extractor'
+import '../palette-presenter'
 
 // Define html template
 const template = document.createElement('template')
@@ -34,6 +35,8 @@ customElements.define('color-companion-application',
         #imagePresenter
 
         #paletteExtractor
+
+        #palettePresenter
 
         constructor() {
             super()
@@ -70,7 +73,7 @@ customElements.define('color-companion-application',
             console.log('Handle drop event')
             const file = event.detail
 
-            if (this.#isAlreadyPresentsImage()) {
+            if (this.#isAlreadyPresentingImage()) {
                 this.#removeImage()
             }
 
@@ -86,7 +89,7 @@ customElements.define('color-companion-application',
          *
          * @returns {boolean}
          */
-        #isAlreadyPresentsImage() {
+        #isAlreadyPresentingImage() {
             if (this.#colorCompanionApp.querySelector('image-presenter')) return true
             return false
         }
@@ -120,7 +123,11 @@ customElements.define('color-companion-application',
             console.log('Handle created palette event')
             const palette = event.detail
 
-            console.log(palette)
+            this.#palettePresenter = document.createElement('palette-presenter')
+            this.#palettePresenter.colorPalette = palette
+            
+
+            this.#colorCompanionApp.appendChild(this.#palettePresenter)
         }
 
     }

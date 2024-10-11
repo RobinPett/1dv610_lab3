@@ -22,6 +22,8 @@ customElements.define('palette-extractor',
     class extends HTMLElement {        
         #paletteExtractor
 
+        #paletteExtractorModule 
+
         #imageElement
 
         #extractedColors
@@ -36,6 +38,7 @@ customElements.define('palette-extractor',
 
             // Get element in shadow root
             this.#paletteExtractor = this.shadowRoot.querySelector('#palette-extractor')
+            this.#paletteExtractorModule = new ColorPaletteExtractor()
         }
 
         /**
@@ -60,13 +63,12 @@ customElements.define('palette-extractor',
         }
 
         async #extractColors() {
-            const imageUrl = this.#imageElement.src // As base64 - Test
+            const imageUrl = this.#imageElement.src // As base64 - Test!!!!!
 
-            const paletteExtractor = new ColorPaletteExtractor()
-            const image = paletteExtractor.loadImage(imageUrl)
+            const image = this.#paletteExtractorModule.loadImage(imageUrl)
             const pixels = await image.getPixels()
 
-            const palette = paletteExtractor.startExtraction(pixels, 5)
+            const palette = this.#paletteExtractorModule.startExtraction(pixels, 5)
             const extractedPalette = palette.getColorPalette()
 
             return extractedPalette
