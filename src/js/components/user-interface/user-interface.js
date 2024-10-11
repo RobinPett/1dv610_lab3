@@ -29,6 +29,11 @@ customElements.define('user-interface',
     class extends HTMLElement {        
         #userInterface
 
+        #defaultButton
+        #brightButton
+        #darkButton
+        #mutedButton
+
         constructor() {
             super()
 
@@ -39,13 +44,21 @@ customElements.define('user-interface',
 
             // Get element in shadow root
             this.#userInterface = this.shadowRoot.querySelector('#user-interface')
+
+            this.#defaultButton = this.shadowRoot.querySelector('#default-button')
+            this.#brightButton = this.shadowRoot.querySelector('#bright-button')
+            this.#darkButton = this.shadowRoot.querySelector('#dark-button')
+            this.#mutedButton = this.shadowRoot.querySelector('#muted-button')
         }
 
         /**
          * Called when component is connected to the DOM
          */
         connectedCallback() {
-
+            this.#defaultButton.addEventListener('click', (event) => console.log('Defualt palette'))
+            this.#brightButton.addEventListener('click', (event) => console.log('Bright palette'))
+            this.#darkButton.addEventListener('click', (event) => console.log('Dark palette'))
+            this.#mutedButton.addEventListener('click', (event) => console.log('Muted palette'))
         }
 
         /**
