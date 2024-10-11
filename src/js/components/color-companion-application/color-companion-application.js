@@ -69,6 +69,7 @@ customElements.define('color-companion-application',
             this.#imageUploader.addEventListener('file-dropped', (event) => this.#handleDroppedFile(event))
             this.#colorCompanionApp.addEventListener('parsed-image', (event) => this.#handleParsedImage(event))
             this.#colorCompanionApp.addEventListener('created-palette', (event) => this.#handleCreatedPalette(event))
+            this.#colorCompanionApp.addEventListener('new-palette', (event) => this.#getNewPalette(event))
         }
 
         /**
@@ -147,6 +148,11 @@ customElements.define('color-companion-application',
             this.#palettePresenter.colorPalette = palette
 
             this.#colorCompanionApp.appendChild(this.#palettePresenter)
+        }
+
+        #getNewPalette(event) {
+            const newPalette = event.detail
+            console.log(newPalette)
         }
     }
 )

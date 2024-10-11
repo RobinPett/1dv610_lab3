@@ -15,10 +15,10 @@ template.innerHTML = `
         <div id="user-interface">
             <div id="palette-selector">
                 <p>Select palette</p>
-                <button id="default-button">Default</button>
-                <button id="bright-button">Bright</button>
-                <button id="dark-button">Dark</button>
-                <button id="muted-button">Muted</button>
+                <button id="default">Default</button>
+                <button id="bright">Bright</button>
+                <button id="dark">Dark</button>
+                <button id="muted">Muted</button>
             </div>
         </div>
     
@@ -45,26 +45,33 @@ customElements.define('user-interface',
             // Get element in shadow root
             this.#userInterface = this.shadowRoot.querySelector('#user-interface')
 
-            this.#defaultButton = this.shadowRoot.querySelector('#default-button')
-            this.#brightButton = this.shadowRoot.querySelector('#bright-button')
-            this.#darkButton = this.shadowRoot.querySelector('#dark-button')
-            this.#mutedButton = this.shadowRoot.querySelector('#muted-button')
+            this.#defaultButton = this.shadowRoot.querySelector('#default')
+            this.#brightButton = this.shadowRoot.querySelector('#bright')
+            this.#darkButton = this.shadowRoot.querySelector('#dark')
+            this.#mutedButton = this.shadowRoot.querySelector('#muted')
         }
 
         /**
          * Called when component is connected to the DOM
          */
         connectedCallback() {
-            this.#defaultButton.addEventListener('click', (event) => console.log('Defualt palette'))
-            this.#brightButton.addEventListener('click', (event) => console.log('Bright palette'))
-            this.#darkButton.addEventListener('click', (event) => console.log('Dark palette'))
-            this.#mutedButton.addEventListener('click', (event) => console.log('Muted palette'))
+            this.#defaultButton.addEventListener('click', (event) => this.#sendNewPaletteEvent(event))
+            this.#brightButton.addEventListener('click', (event) => this.#sendNewPaletteEvent(event))
+            this.#darkButton.addEventListener('click', (event) => this.#sendNewPaletteEvent(event))
+            this.#mutedButton.addEventListener('click', (event) => this.#sendNewPaletteEvent(event))
         }
 
         /**
          * Called when component is disconnected from the DOM
          */
         disconnectedCallback() {
+        }
+
+        #sendNewPaletteEvent(event) {
+            const buttonPressed = event.target.id
+
+            const newPaletteEvent = new window.CustomEvent('new-palette', { detail: buttonPressed, bubbles: true })
+            this.dispatchEvent(newPaletteEvent)
         }
 
     }
