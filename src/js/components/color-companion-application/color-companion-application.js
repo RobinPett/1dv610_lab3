@@ -2,9 +2,16 @@
  * Color Companion Main Application
  */
 
+// TODO
+// Add checks for already existing component in one single method
+// isAlreadyRendering(component)
+
+// Maybe clear palette-presenter and image-presenter at the same time? On drop event? 
+
 import '../image-uploader'
 import '../image-presenter'
 import '../palette-extractor'
+import '../palette-presenter'
 
 // Define html template
 const template = document.createElement('template')
@@ -34,6 +41,8 @@ customElements.define('color-companion-application',
         #imagePresenter
 
         #paletteExtractor
+
+        #palettePresenter
 
         constructor() {
             super()
@@ -70,9 +79,9 @@ customElements.define('color-companion-application',
             console.log('Handle drop event')
             const file = event.detail
 
-            if (this.#isAlreadyPresentsImage()) {
-                this.#removeImage()
-            }
+            this.#clearImageAndPalette()
+
+
 
             // Create new presenter
             this.#imagePresenter = document.createElement('image-presenter')
@@ -82,19 +91,31 @@ customElements.define('color-companion-application',
         }
 
         /**
-         * Check for already existing image-presenter.
-         *
-         * @returns {boolean}
+         * Clear previous image and palette from application.
          */
-        #isAlreadyPresentsImage() {
-            if (this.#colorCompanionApp.querySelector('image-presenter')) return true
+        #clearImageAndPalette() {
+            const paletteComponent = 'palette-presenter'
+            const imageComponent = 'image-presenter'
+
+            if (this.#isAlreadyDisplayingComponent(imageComponent)) {
+                this.#removeComponent(imageComponent)
+            }
+
+            if (this.#isAlreadyDisplayingComponent(paletteComponent)) {
+                this.#removeComponent(paletteComponent)
+            }
+        }
+
+        #isAlreadyDisplayingComponent(component) {
+            if (this.#colorCompanionApp.querySelector(component)) return true
             return false
         }
 
-        #removeImage() {
-            const presenter = this.#colorCompanionApp.querySelector('image-presenter')
-            this.#colorCompanionApp.removeChild(presenter)
-
+        #removeComponent(component) {
+            const componentElement = this.#colorCompanionApp.querySelector(component)
+            if (componentElement) {
+                this.#colorCompanionApp.removeChild(componentElement)
+            }
         }
 
         /**
@@ -105,10 +126,10 @@ customElements.define('color-companion-application',
         #handleParsedImage(event) {
             console.log('Handle parsed image event')
             const imageElement = event.detail
-            
+
             this.#paletteExtractor = document.createElement('palette-extractor')
             this.#paletteExtractor.imageElement = imageElement
-            
+
 
             this.#colorCompanionApp.appendChild(this.#paletteExtractor)
         }
@@ -120,8 +141,10 @@ customElements.define('color-companion-application',
             console.log('Handle created palette event')
             const palette = event.detail
 
-            console.log(palette)
-        }
+            this.#palettePresenter = document.createElement('palette-presenter')
+            this.#palettePresenter.colorPalette = palette
 
+            this.#colorCompanionApp.appendChild(this.#palettePresenter)
+        }
     }
 )
