@@ -29,7 +29,6 @@ template.innerHTML = `
         <div id="color-companion-app">
             <p>Main app</p>
             <image-uploader id="image-uploader"> </image-uploader>
-            <user-interface id="ui" </user-interface>
         </div>
     </html>
 `
@@ -45,6 +44,8 @@ customElements.define('color-companion-application',
         #paletteExtractor
 
         #palettePresenter
+
+        #userInterface
 
         constructor() {
             super()
@@ -84,11 +85,9 @@ customElements.define('color-companion-application',
 
             this.#clearImageAndPalette()
 
-            // Create new presenter
-            this.#imagePresenter = document.createElement('image-presenter')
-            this.#imagePresenter.image = file
-            this.#colorCompanionApp.appendChild(this.#imagePresenter)
+            this.#createUserInterface()
 
+            this.#createImagePresenter(file)
         }
 
         /**
@@ -107,14 +106,6 @@ customElements.define('color-companion-application',
             }
         }
 
-        #clearPalette() {
-            const paletteComponent = 'palette-presenter'
-
-            if (this.#isAlreadyDisplayingComponent(paletteComponent)) {
-                this.#removeComponent(paletteComponent)
-            }
-        }
-
         #isAlreadyDisplayingComponent(component) {
             if (this.#colorCompanionApp.querySelector(component)) return true
             return false
@@ -125,6 +116,17 @@ customElements.define('color-companion-application',
             if (componentElement) {
                 this.#colorCompanionApp.removeChild(componentElement)
             }
+        }
+
+        #createImagePresenter(file) {
+            this.#imagePresenter = document.createElement('image-presenter')
+            this.#imagePresenter.image = file
+            this.#colorCompanionApp.appendChild(this.#imagePresenter)
+        }
+
+        #createUserInterface() {
+            this.#userInterface = document.createElement('user-interface')
+            this.#colorCompanionApp.appendChild(this.#userInterface)
         }
 
         /**
@@ -172,6 +174,14 @@ customElements.define('color-companion-application',
             this.#clearPalette()
 
             this.#createPalettePresenter(newExtractedPalette)
+        }
+
+        #clearPalette() {
+            const paletteComponent = 'palette-presenter'
+
+            if (this.#isAlreadyDisplayingComponent(paletteComponent)) {
+                this.#removeComponent(paletteComponent)
+            }
         }
     }
 )
