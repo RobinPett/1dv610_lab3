@@ -8,7 +8,7 @@ const template = document.createElement('template')
 template.innerHTML = `
     <style>
         #image-presenter img{
-            width: 50%;
+            width: 20%;
             height: auto;
             margin: 2em;
         }

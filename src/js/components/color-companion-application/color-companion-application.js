@@ -83,7 +83,7 @@ customElements.define('color-companion-application',
             console.log('Handle drop event')
             const file = event.detail
 
-            this.#clearImageAndPalette()
+            this.#clearPreviousImage()
 
             this.#createUserInterface()
 
@@ -93,9 +93,10 @@ customElements.define('color-companion-application',
         /**
          * Clear previous image and palette from application.
          */
-        #clearImageAndPalette() {
+        #clearPreviousImage() {
             const paletteComponent = 'palette-presenter'
             const imageComponent = 'image-presenter'
+            const uiComponent = 'user-interface'
 
             if (this.#isAlreadyDisplayingComponent(imageComponent)) {
                 this.#removeComponent(imageComponent)
@@ -103,6 +104,10 @@ customElements.define('color-companion-application',
 
             if (this.#isAlreadyDisplayingComponent(paletteComponent)) {
                 this.#removeComponent(paletteComponent)
+            }
+
+            if (this.#isAlreadyDisplayingComponent(uiComponent)) {
+                this.#removeComponent(uiComponent)
             }
         }
 

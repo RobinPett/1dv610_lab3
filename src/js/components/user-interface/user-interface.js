@@ -8,6 +8,28 @@ const template = document.createElement('template')
 template.innerHTML = `
     <style>
         #user-interface {
+
+        }
+
+        button {
+            border-radius: 1em;
+            border: solid 1px rgba(0, 0, 0, 0.1);
+            padding: 1em;
+            background-color: white;
+            filter: drop-shadow(0 0 0.2em rgba(0, 0, 0, 0.1));
+            transition: 0.1s;
+            margin: 0 0.1em 0 0.1em;
+        }
+
+        button:hover {
+            background-color: rgba(0, 0, 0, 1);
+            color: white;
+            cursor: pointer;
+        }
+
+        button:focus {
+            background-color: rgba(0, 0, 0, 1);
+            color: white;
         }
     </style>
 
@@ -15,10 +37,10 @@ template.innerHTML = `
         <div id="user-interface">
             <div id="palette-selector">
                 <p>Select palette</p>
-                <button id="default">Default</button>
-                <button id="bright">Bright</button>
-                <button id="dark">Dark</button>
-                <button id="muted">Muted</button>
+                <button id="default" class="focus" autofocus>Default</button>
+                <button id="bright" class="focus">Bright</button>
+                <button id="dark" class="focus">Dark</button>
+                <button id="muted" class="focus">Muted</button>
             </div>
         </div>
     
