@@ -9,12 +9,40 @@ const template = document.createElement('template')
 template.innerHTML = `
     <style>
         #hexvalue-presenter {
+            border-radius: 1em;
+            background-color: #faf9f6;
+            width: min-content;
+            margin: auto;
+        }
+
+        #hexvalue-presenter:hover {
+            cursor: pointer;
+        }
+
+        #hex-text {
+            border-radius: 0.5em;
+            background-color: white;
+            border: solid 1px rgba(0, 0, 0, 0.1);
+            transition: 0.1s;
+            margin: 0 0.1em 0 0.1em;
+            user-select: none;
+            padding: 0.5em 1em 0.5em 1em;
+        }
+
+        #hex-text:hover {
+            background-color: black;
+            color: white;
+            cursor: pointer;
+        }
+
+        #hex-text:active {
+            background-color: red;
         }
     </style>
 
     <html>
         <div id="hexvalue-presenter">
-            <p id="hex-text"></p>
+            <button id="hex-text" title="Copy"></button>
         </div>
     
     </html>

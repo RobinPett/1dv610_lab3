@@ -25,6 +25,9 @@ template.innerHTML = `
             width: 100px;
             border-radius: 0.5em;
             margin: 0.2em;
+        }
+
+        #color-container {
             display: flex;
             flex-direction: column;
         }
@@ -88,29 +91,38 @@ customElements.define('palette-presenter',
         }
 
         #displayPaletteAsDiv() {
-            const containerDiv = document.createElement('div')
-            containerDiv.style.display = 'flex'
-            containerDiv.style.flexDirection = 'row'
+            const paletteContainer = document.createElement('div')
+            paletteContainer.style.display = 'flex'
+            paletteContainer.style.flexDirection = 'row'
 
-            const presentablePalette = this.#createColoredDivs(containerDiv)
+            const presentablePalette = this.#createColoredDivs(paletteContainer)
 
             this.#palettePresenter.appendChild(presentablePalette)
         }
 
-        #createColoredDivs(containerDiv) {
+        #createColoredDivs(paletteContainer) {
             this.#colorPalette.palette.forEach((color, index) => {
-                const div = document.createElement('div')
-                div.style.backgroundColor = `rgb(${color.red}, ${color.green}, ${color.blue})`
-                div.className = 'palette-colors'
+                const colorContainer = document.createElement('div')
+                colorContainer.className = 'color-container'
+
+                const paletteColor = this.#createPaletteColor(color)
+                colorContainer.appendChild(paletteColor)
                 
                 const hexPresenter = this.#createHexPresenter(index)
-                div.appendChild(hexPresenter)
+                colorContainer.appendChild(hexPresenter)
                 
-
-                containerDiv.appendChild(div)
+                paletteContainer.appendChild(colorContainer)
             })
 
-            return containerDiv
+            return paletteContainer
+        }
+
+        #createPaletteColor(color) {
+            const paletteColor = document.createElement('div')
+            paletteColor.style.backgroundColor = `rgb(${color.red}, ${color.green}, ${color.blue})`
+            paletteColor.className = 'palette-colors'
+
+            return paletteColor
         }
 
         #createHexPresenter(index) {
