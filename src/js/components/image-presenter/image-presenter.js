@@ -11,6 +11,8 @@ template.innerHTML = `
             width: 20%;
             height: auto;
             margin: 2em;
+            border-radius: 1em;
+            filter: drop-shadow(0 0 1em rgba(0, 0, 0, 0.1));
         }
     </style>
 
