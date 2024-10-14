@@ -12,6 +12,7 @@ import '../image-uploader'
 import '../image-presenter'
 import '../palette-extractor'
 import '../palette-presenter'
+import '../user-interface'
 
 // Define html template
 const template = document.createElement('template')
@@ -27,7 +28,7 @@ template.innerHTML = `
     <html>
         <div id="color-companion-app">
             <p>Main app</p>
-            <image-uploader id="image-uploader" />
+            <image-uploader id="image-uploader"> </image-uploader>
         </div>
     </html>
 `
@@ -43,6 +44,8 @@ customElements.define('color-companion-application',
         #paletteExtractor
 
         #palettePresenter
+
+        #userInterface
 
         constructor() {
             super()
@@ -67,6 +70,7 @@ customElements.define('color-companion-application',
             this.#imageUploader.addEventListener('file-dropped', (event) => this.#handleDroppedFile(event))
             this.#colorCompanionApp.addEventListener('parsed-image', (event) => this.#handleParsedImage(event))
             this.#colorCompanionApp.addEventListener('created-palette', (event) => this.#handleCreatedPalette(event))
+            this.#colorCompanionApp.addEventListener('new-palette', (event) => this.#getNewPalette(event))
         }
 
         /**
@@ -79,23 +83,20 @@ customElements.define('color-companion-application',
             console.log('Handle drop event')
             const file = event.detail
 
-            this.#clearImageAndPalette()
+            this.#clearPreviousImage()
 
+            this.#createUserInterface()
 
-
-            // Create new presenter
-            this.#imagePresenter = document.createElement('image-presenter')
-            this.#imagePresenter.image = file
-            this.#colorCompanionApp.appendChild(this.#imagePresenter)
-
+            this.#createImagePresenter(file)
         }
 
         /**
          * Clear previous image and palette from application.
          */
-        #clearImageAndPalette() {
+        #clearPreviousImage() {
             const paletteComponent = 'palette-presenter'
             const imageComponent = 'image-presenter'
+            const uiComponent = 'user-interface'
 
             if (this.#isAlreadyDisplayingComponent(imageComponent)) {
                 this.#removeComponent(imageComponent)
@@ -103,6 +104,10 @@ customElements.define('color-companion-application',
 
             if (this.#isAlreadyDisplayingComponent(paletteComponent)) {
                 this.#removeComponent(paletteComponent)
+            }
+
+            if (this.#isAlreadyDisplayingComponent(uiComponent)) {
+                this.#removeComponent(uiComponent)
             }
         }
 
@@ -116,6 +121,17 @@ customElements.define('color-companion-application',
             if (componentElement) {
                 this.#colorCompanionApp.removeChild(componentElement)
             }
+        }
+
+        #createImagePresenter(file) {
+            this.#imagePresenter = document.createElement('image-presenter')
+            this.#imagePresenter.image = file
+            this.#colorCompanionApp.appendChild(this.#imagePresenter)
+        }
+
+        #createUserInterface() {
+            this.#userInterface = document.createElement('user-interface')
+            this.#colorCompanionApp.appendChild(this.#userInterface)
         }
 
         /**
@@ -141,10 +157,36 @@ customElements.define('color-companion-application',
             console.log('Handle created palette event')
             const palette = event.detail
 
+            this.#createPalettePresenter(palette)
+        }
+
+        #createPalettePresenter(palette) {
             this.#palettePresenter = document.createElement('palette-presenter')
             this.#palettePresenter.colorPalette = palette
 
             this.#colorCompanionApp.appendChild(this.#palettePresenter)
+        }
+
+        #getNewPalette(event) {
+            const newPalette = event.detail
+            let newExtractedPalette
+            console.log(newPalette)
+
+            if (this.#paletteExtractor) {
+               newExtractedPalette = this.#paletteExtractor.getNewPalette(newPalette)
+            }
+
+            this.#clearPalette()
+
+            this.#createPalettePresenter(newExtractedPalette)
+        }
+
+        #clearPalette() {
+            const paletteComponent = 'palette-presenter'
+
+            if (this.#isAlreadyDisplayingComponent(paletteComponent)) {
+                this.#removeComponent(paletteComponent)
+            }
         }
     }
 )

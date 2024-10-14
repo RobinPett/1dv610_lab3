@@ -11,8 +11,8 @@ template.innerHTML = `
     <style>
         #image-uploader {
             border: solid rgba(0, 0, 0, 0.2);
-            width: 50%;
-            height: 50%;
+            width: 25%;
+            height: 25%;
             margin: auto;
             border-radius: 1em;
             transition: 0.2s;
@@ -23,8 +23,8 @@ template.innerHTML = `
         #image-uploader:hover {
             border: solid rgba(0, 0, 0, 0.5);
             background-color: rgba(0, 0, 0, 0.02);
-            width: 51%;
-            height: 51%;
+            width: 26%;
+            height: 26%;
             cursor: pointer;
         }
 

@@ -3,10 +3,8 @@
 > Användare ska kunna ladda upp en bild.
 >
 > Användare ska kunna extrahera färgpaletter från bilden.
-
-> Användare ska kunna konvertera färgpaletten från rgb till hex.
 >
-> Färgpaletternas färg värden ska kunna kopieras.
+> Färgpaletternas färg värden ska kunna kopieras i HEX format.
 >
 > Färgpaletter ska kunna sparas i webbläsaren.
 
