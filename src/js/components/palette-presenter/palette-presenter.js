@@ -54,9 +54,7 @@ customElements.define('palette-presenter',
          */
 
         set colorPalette(palette) {
-            if (!Array.isArray(palette)) {
-                throw new TypeError('Palette must be an array of objects. Input is currently: ' + palette)
-            }
+            console.log(palette)
 
             this.#colorPalette = palette
             this.#handlePalette()

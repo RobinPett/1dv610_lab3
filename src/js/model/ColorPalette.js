@@ -5,11 +5,11 @@
 class ColorPalette {
     #palette 
     constructor(palette) {
-        console.log('Palette recieved')
-        console.log(palette)
         this.#validatePalette(palette)
         this.#palette = palette
-        console.log('New palette created ' + this.#palette)
+
+        console.log('New palette created: ')
+        console.log(this.#palette)
     }
 
     #validatePalette(palette) {
@@ -27,7 +27,6 @@ class ColorPalette {
      */
     #checkColorsInPalette(palette) {
         palette.forEach(color => {
-            console.log(color)
             const rgbValues = [color.red, color.green, color.blue]
 
             if (typeof color !== 'object') throw new TypeError("Color must be an object");
@@ -42,12 +41,11 @@ class ColorPalette {
                 return (typeof value === 'number') && value >= 0 && value <= 255 
             })
 
-            console.log(isValidRgbValues)
-
             if(!isValidRgbValues) throw new RangeError('RGB values must be between 0 and 255')
 
         })
     }
+
 }
 
 export default ColorPalette
