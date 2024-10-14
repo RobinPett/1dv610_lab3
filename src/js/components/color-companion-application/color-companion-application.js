@@ -154,7 +154,7 @@ customElements.define('color-companion-application',
             const createdPalette = event.detail
             const colorPalette = new ColorPalette(createdPalette)
 
-            this.#createPalettePresenter(colorPalette.palette)
+            this.#createPalettePresenter(colorPalette)
         }
 
         #createPalettePresenter(palette) {
@@ -176,7 +176,7 @@ customElements.define('color-companion-application',
 
             this.#clearPalette()
 
-            this.#createPalettePresenter(colorPalette.palette)
+            this.#createPalettePresenter(colorPalette)
         }
 
         #clearPalette() {

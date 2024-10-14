@@ -62,10 +62,23 @@ class ColorPalette {
      * Example rgb: 255, 0, 0 = hex: #ff0000
      */
     convertRgbToHex() {
+        const hexValues = []
         this.palette.forEach(color => {
-            const [red, green, blue] = color
-            console.log(red, green, blue)
+            console.log(color)
+            const { red, green, blue } = color
+
+            const redHex = red.toString(16).padStart(2, '0')
+            const greenHex = green.toString(16).padStart(2, '0')
+            const blueHex = blue.toString(16).padStart(2, '0')
+
+            console.log('red:' + 'rgb: ' + red + 'hex: ' + redHex)
+            console.log('green:' + 'rgb: ' + green + 'hex: ' + greenHex)
+            console.log('blue:' + 'rgb: ' + blue + 'hex: ' + blueHex)
+
+            hexValues.push(redHex + greenHex + blueHex)
         })
+
+        return hexValues
     }
 }
 

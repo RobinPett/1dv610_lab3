@@ -1,5 +1,6 @@
 /**
  * Palette presenter component.
+ * Creates and displays colored divs and hex values for each color in palette.
  */
 
 import ColorPalette from '../../model/ColorPalette'
@@ -30,6 +31,11 @@ customElements.define('palette-presenter',
     class extends HTMLElement {        
         #palettePresenter
 
+        /**
+         * ColorPalette type.
+         * 
+         * @type {ColorPalette}
+         */
         #colorPalette
 
         #paletteSize = 100
@@ -51,16 +57,17 @@ customElements.define('palette-presenter',
         /**
          * Setter for color palette.
          * 
-         * @param {ColorPalette} palette
+         * @param {ColorPalette} ColorPalette
          */
 
-        set colorPalette(palette) {
-            this.#colorPalette = palette
+        set colorPalette(ColorPalette) {
+            this.#colorPalette = ColorPalette
             this.#handlePalette()
         } 
 
         #handlePalette() {
             this.#displayPaletteAsDiv()
+            this.#displayHexValues()
             this.#addSaveButton()
         }
 
@@ -75,7 +82,7 @@ customElements.define('palette-presenter',
         }
 
         #createColoredDivs(containerDiv) {
-            this.#colorPalette.forEach((color) => {
+            this.#colorPalette.palette.forEach((color) => {
                 const div = document.createElement('div')
                 div.style.backgroundColor = `rgb(${color.red}, ${color.green}, ${color.blue})`
                 div.style.height = `${this.#paletteSize}px`
@@ -87,6 +94,14 @@ customElements.define('palette-presenter',
             })
 
             return containerDiv
+        }
+
+        /**
+         * Convert rgb data to hex. ---- CHANGE
+         */
+        #displayHexValues() {
+            const hexValues = this.#colorPalette.convertRgbToHex()
+            console.log(hexValues)
         }
 
         #addSaveButton() {
