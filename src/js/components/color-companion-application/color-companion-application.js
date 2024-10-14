@@ -67,6 +67,7 @@ customElements.define('color-companion-application',
             this.#colorCompanionApp.addEventListener('created-palette', (event) => this.#handleCreatedPalette(event))
             this.#colorCompanionApp.addEventListener('new-palette', (event) => this.#getNewPalette(event))
             this.#colorCompanionApp.addEventListener('save-palette', (event) => this.#savePalette(event))
+            this.#colorCompanionApp.addEventListener('hex-copied', () => alert('Color copied'))
         }
 
         /**

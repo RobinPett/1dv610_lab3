@@ -86,13 +86,25 @@ customElements.define('hexvalue-presenter',
         }
 
         #displayHexValues() {
-            this.#hexText.textContent = `#${this.#hexValue}`
+            this.#hexText.textContent = this.#hexValue
+            this.#hexText.value = this.#hexValue
+        }
+
+        #copyHexValue() {
+            navigator.clipboard.writeText(this.#hexValue)
+            this.#sendHexCopiedEvent()
+        }
+
+        #sendHexCopiedEvent() {
+            const hexCopiedEvent = new window.CustomEvent('hex-copied', { bubbles: true })
+            this.dispatchEvent(hexCopiedEvent)
         }
 
         /**
          * Called when component is connected to the DOM
          */
         connectedCallback() {
+            this.#hexText.addEventListener('click', () => this.#copyHexValue())
         }
 
         /**

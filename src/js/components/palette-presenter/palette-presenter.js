@@ -126,8 +126,10 @@ customElements.define('palette-presenter',
         }
 
         #createHexPresenter(index) {
+            const hexValue = this.#hexValues[index]
             const hexPresenter = document.createElement('hexvalue-presenter')
-            hexPresenter.hexValue = this.#hexValues[index]
+            hexPresenter.setAttribute('value', hexValue)
+            hexPresenter.hexValue = hexValue
             return hexPresenter
         }
 
@@ -143,13 +145,18 @@ customElements.define('palette-presenter',
             this.dispatchEvent(savePaletteEvent)
         }
 
+        #copyHexValue(event) {
+            const hexButtonClicked = event.target
+        }
+
 
 
         /**
          * Called when component is connected to the DOM
          */
         connectedCallback() {
-            this.#saveButton.addEventListener('click', (event) => { this.#sendSavePaletteEvent() }) 
+            this.#saveButton.addEventListener('click', (event) => { this.#sendSavePaletteEvent(event)})
+            this.#palettePresenter.addEventListener('hex-copied', () => this.dispatchEvent(new window.CustomEvent('hex-copied', {bubbles: true}))) 
         }
 
         /**

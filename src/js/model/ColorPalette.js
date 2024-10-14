@@ -71,7 +71,7 @@ class ColorPalette {
             console.log('green:' + 'rgb: ' + green + 'hex: ' + greenHex)
             console.log('blue:' + 'rgb: ' + blue + 'hex: ' + blueHex)
 
-            hexValues.push(redHex + greenHex + blueHex)
+            hexValues.push('#' + redHex + greenHex + blueHex)
         })
 
         return hexValues
