@@ -35,8 +35,6 @@ customElements.define('palette-presenter',
 
         #saveButton
 
-        
-
         constructor() {
             super()
 
@@ -85,6 +83,8 @@ customElements.define('palette-presenter',
                 div.style.backgroundColor = `rgb(${color.red}, ${color.green}, ${color.blue})`
                 div.style.height = `${this.#paletteSize}px`
                 div.style.width = `${this.#paletteSize}px`
+                div.style.borderRadius = '0.5em'
+                div.style.margin = '0.2em'
 
                 containerDiv.appendChild(div)
             })
