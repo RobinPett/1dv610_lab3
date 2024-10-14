@@ -3,7 +3,6 @@
  */
 
 import { ColorPaletteExtractor } from "color-palette-extractor"
-import ColorPalette from "../../model/ColorPalette"
 
 // Define html template
 const template = document.createElement('template')
@@ -85,8 +84,7 @@ customElements.define('palette-extractor',
 
         getNewPalette(palette) {
             if (palette === 'default') {
-                const palette = this.#palette.getColorPalette()
-                return new ColorPalette(palette)
+                return this.#palette.getColorPalette()
             }
 
             if (palette === 'bright') {

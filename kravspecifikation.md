@@ -7,6 +7,9 @@
 > Färgpaletternas färg värden ska kunna kopieras i HEX format.
 >
 > Färgpaletter ska kunna sparas i webbläsaren.
+>
+> Färgpaletter ska kunna laddas ned som en bild.
+
 
 
 ## 2\. Ickefunktionella produktkrav (non-functional product requirements)

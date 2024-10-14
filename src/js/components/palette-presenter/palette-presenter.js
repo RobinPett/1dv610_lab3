@@ -2,6 +2,7 @@
  * Palette presenter component.
  */
 
+import ColorPalette from '../../model/ColorPalette'
 import '../save-palette'
 
 // Define html template
@@ -50,12 +51,10 @@ customElements.define('palette-presenter',
         /**
          * Setter for color palette.
          * 
-         * @param {object} palette
+         * @param {ColorPalette} palette
          */
 
         set colorPalette(palette) {
-            console.log(palette)
-
             this.#colorPalette = palette
             this.#handlePalette()
         } 

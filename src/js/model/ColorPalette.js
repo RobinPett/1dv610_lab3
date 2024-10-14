@@ -3,15 +3,24 @@
  * Custom type for a Color Palette
  */
 class ColorPalette {
-    #palette 
+    /**
+     * Represent a palette - Array of objects with
+     * red, green, blue and alpha values. 
+     */
+    palette 
+
     constructor(palette) {
         this.#validatePalette(palette)
-        this.#palette = palette
+        this.palette = palette
 
         console.log('New palette created: ')
-        console.log(this.#palette)
+        console.log(this.palette)
     }
 
+    /**
+     * Check if palette is an array of rgb values.
+     * @param {Array} palette 
+     */
     #validatePalette(palette) {
         if (!Array.isArray(palette)) {
             throw new TypeError('Palette must be an array of objects')
@@ -36,8 +45,6 @@ class ColorPalette {
             
             // Make sure rgbValues are numbers between 0 and 255
             const isValidRgbValues = rgbValues.every(value => {
-                console.log(value)
-                console.log(typeof value)
                 return (typeof value === 'number') && value >= 0 && value <= 255 
             })
 
@@ -46,6 +53,20 @@ class ColorPalette {
         })
     }
 
+    getPalette() {
+        return this.palette
+    }
+
+    /**
+     * Convert red green and blue to hexadecimal.
+     * Example rgb: 255, 0, 0 = hex: #ff0000
+     */
+    convertRgbToHex() {
+        this.palette.forEach(color => {
+            const [red, green, blue] = color
+            console.log(red, green, blue)
+        })
+    }
 }
 
 export default ColorPalette
