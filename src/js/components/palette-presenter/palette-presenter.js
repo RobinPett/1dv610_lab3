@@ -94,6 +94,7 @@ customElements.define('palette-presenter',
 
         #addSaveButton() {
             const saveButton = document.createElement('save-palette')
+            saveButton.style.margin = '1em'
             this.#saveButton = saveButton
             this.#palettePresenter.appendChild(saveButton)
         }
