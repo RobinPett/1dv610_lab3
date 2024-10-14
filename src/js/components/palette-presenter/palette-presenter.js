@@ -5,6 +5,7 @@
 
 import ColorPalette from '../../model/ColorPalette'
 import '../save-palette'
+import '../hexvalue-presenter'
 
 // Define html template
 const template = document.createElement('template')
@@ -18,6 +19,17 @@ template.innerHTML = `
             justify-content: center;
             align-items: center;
         }
+
+        .palette-colors {
+            height: 100px;
+            width: 100px;
+            border-radius: 0.5em;
+            margin: 0.2em;
+            display: flex;
+            flex-direction: column;
+        }
+
+
     </style>
 
     <html>
@@ -38,7 +50,7 @@ customElements.define('palette-presenter',
          */
         #colorPalette
 
-        #paletteSize = 100
+        #hexValues
 
         #saveButton
 
@@ -66,9 +78,13 @@ customElements.define('palette-presenter',
         } 
 
         #handlePalette() {
+            this.#getHexValues()
             this.#displayPaletteAsDiv()
-            this.#displayHexValues()
             this.#addSaveButton()
+        }
+
+        #getHexValues() {
+            this.#hexValues = this.#colorPalette.convertRgbToHex()
         }
 
         #displayPaletteAsDiv() {
@@ -82,13 +98,14 @@ customElements.define('palette-presenter',
         }
 
         #createColoredDivs(containerDiv) {
-            this.#colorPalette.palette.forEach((color) => {
+            this.#colorPalette.palette.forEach((color, index) => {
                 const div = document.createElement('div')
                 div.style.backgroundColor = `rgb(${color.red}, ${color.green}, ${color.blue})`
-                div.style.height = `${this.#paletteSize}px`
-                div.style.width = `${this.#paletteSize}px`
-                div.style.borderRadius = '0.5em'
-                div.style.margin = '0.2em'
+                div.className = 'palette-colors'
+                
+                const hexPresenter = this.#createHexPresenter(index)
+                div.appendChild(hexPresenter)
+                
 
                 containerDiv.appendChild(div)
             })
@@ -96,12 +113,10 @@ customElements.define('palette-presenter',
             return containerDiv
         }
 
-        /**
-         * Convert rgb data to hex. ---- CHANGE
-         */
-        #displayHexValues() {
-            const hexValues = this.#colorPalette.convertRgbToHex()
-            console.log(hexValues)
+        #createHexPresenter(index) {
+            const hexPresenter = document.createElement('hexvalue-presenter')
+            hexPresenter.hexValue = this.#hexValues[index]
+            return hexPresenter
         }
 
         #addSaveButton() {

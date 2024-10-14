@@ -53,10 +53,6 @@ class ColorPalette {
         })
     }
 
-    getPalette() {
-        return this.palette
-    }
-
     /**
      * Convert red green and blue to hexadecimal.
      * Example rgb: 255, 0, 0 = hex: #ff0000
