@@ -21,6 +21,7 @@ template.innerHTML = `
             width: 100vw;
             height: 100vh;
         }
+
     </style>
 
     <html>
@@ -70,7 +71,7 @@ customElements.define('color-companion-application',
             this.#colorCompanionApp.addEventListener('created-palette', (event) => this.#handleCreatedPalette(event))
             this.#colorCompanionApp.addEventListener('new-palette', (event) => this.#getNewPalette(event))
             this.#colorCompanionApp.addEventListener('save-palette', (event) => this.#savePalette(event))
-            this.#colorCompanionApp.addEventListener('hex-copied', () => this.#sendToastMessage('Color copied')) // Flash message
+            this.#colorCompanionApp.addEventListener('hex-copied', () => this.#displayToastMessage('Color copied')) // Flash message
         }
 
         /**
@@ -137,7 +138,6 @@ customElements.define('color-companion-application',
          * @param {*} event 
          */
         #handleParsedImage(event) {
-            console.log('Handle parsed image event')
             const imageElement = event.detail
 
             this.#paletteExtractor = document.createElement('palette-extractor')
@@ -151,7 +151,6 @@ customElements.define('color-companion-application',
          * Handles color palette event. ------ CHANGE!!!!
          */
         #handleCreatedPalette(event) {
-            console.log('Handle created palette event')
             const createdPalette = event.detail
             const colorPalette = new ColorPalette(createdPalette)
 
@@ -206,7 +205,7 @@ customElements.define('color-companion-application',
             link.click()
         }
 
-        #sendToastMessage(message) {
+        #displayToastMessage(message) {
             console.log('Send toast')
             console.log(message)
             Toastify({
