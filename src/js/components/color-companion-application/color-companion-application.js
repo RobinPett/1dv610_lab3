@@ -2,17 +2,12 @@
  * Color Companion Main Application
  */
 
-// TODO
-// Add checks for already existing component in one single method
-// isAlreadyRendering(component)
-
-// Maybe clear palette-presenter and image-presenter at the same time? On drop event? 
-
 import '../image-uploader'
 import '../image-presenter'
 import '../palette-extractor'
 import '../palette-presenter'
 import '../user-interface'
+import ColorPalette from '../../model/ColorPalette'
 
 // Define html template
 const template = document.createElement('template')
@@ -71,6 +66,8 @@ customElements.define('color-companion-application',
             this.#colorCompanionApp.addEventListener('parsed-image', (event) => this.#handleParsedImage(event))
             this.#colorCompanionApp.addEventListener('created-palette', (event) => this.#handleCreatedPalette(event))
             this.#colorCompanionApp.addEventListener('new-palette', (event) => this.#getNewPalette(event))
+            this.#colorCompanionApp.addEventListener('save-palette', (event) => this.#savePalette(event))
+            this.#colorCompanionApp.addEventListener('hex-copied', () => console.log('Color copied')) // Flash message
         }
 
         /**
@@ -155,9 +152,10 @@ customElements.define('color-companion-application',
          */
         #handleCreatedPalette(event) {
             console.log('Handle created palette event')
-            const palette = event.detail
+            const createdPalette = event.detail
+            const colorPalette = new ColorPalette(createdPalette)
 
-            this.#createPalettePresenter(palette)
+            this.#createPalettePresenter(colorPalette)
         }
 
         #createPalettePresenter(palette) {
@@ -170,15 +168,16 @@ customElements.define('color-companion-application',
         #getNewPalette(event) {
             const newPalette = event.detail
             let newExtractedPalette
-            console.log(newPalette)
 
             if (this.#paletteExtractor) {
                newExtractedPalette = this.#paletteExtractor.getNewPalette(newPalette)
             }
 
+            const colorPalette = new ColorPalette(newExtractedPalette)
+
             this.#clearPalette()
 
-            this.#createPalettePresenter(newExtractedPalette)
+            this.#createPalettePresenter(colorPalette)
         }
 
         #clearPalette() {
@@ -187,6 +186,12 @@ customElements.define('color-companion-application',
             if (this.#isAlreadyDisplayingComponent(paletteComponent)) {
                 this.#removeComponent(paletteComponent)
             }
+        }
+
+        #savePalette(event) {
+            const palette = event.detail
+
+            console.log(palette)
         }
     }
 )
