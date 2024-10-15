@@ -141,15 +141,9 @@ customElements.define('palette-presenter',
         }
 
         #sendSavePaletteEvent() {
-            const savePaletteEvent = new window.CustomEvent('save-palette', { detail: this.#colorPalette, bubbles: true })
+            const savePaletteEvent = new window.CustomEvent('save-palette', { detail: this.#palettePresenter, bubbles: true })
             this.dispatchEvent(savePaletteEvent)
         }
-
-        #copyHexValue(event) {
-            const hexButtonClicked = event.target
-        }
-
-
 
         /**
          * Called when component is connected to the DOM

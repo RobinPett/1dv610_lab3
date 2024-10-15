@@ -8,6 +8,9 @@ import '../palette-extractor'
 import '../palette-presenter'
 import '../user-interface'
 import ColorPalette from '../../model/ColorPalette'
+import html2canvas from 'html2canvas'
+import Toastify from 'toastify-js'
+import "toastify-js/src/toastify.css"
 
 // Define html template
 const template = document.createElement('template')
@@ -67,7 +70,7 @@ customElements.define('color-companion-application',
             this.#colorCompanionApp.addEventListener('created-palette', (event) => this.#handleCreatedPalette(event))
             this.#colorCompanionApp.addEventListener('new-palette', (event) => this.#getNewPalette(event))
             this.#colorCompanionApp.addEventListener('save-palette', (event) => this.#savePalette(event))
-            this.#colorCompanionApp.addEventListener('hex-copied', () => console.log('Color copied')) // Flash message
+            this.#colorCompanionApp.addEventListener('hex-copied', () => this.#sendToastMessage('Color copied')) // Flash message
         }
 
         /**
@@ -77,13 +80,10 @@ customElements.define('color-companion-application',
         }
 
         #handleDroppedFile(event) {
-            console.log('Handle drop event')
             const file = event.detail
 
             this.#clearPreviousImage()
-
             this.#createUserInterface()
-
             this.#createImagePresenter(file)
         }
 
@@ -188,10 +188,35 @@ customElements.define('color-companion-application',
             }
         }
 
-        #savePalette(event) {
+        async #savePalette(event) {
             const palette = event.detail
 
+            console.log('Save Palette')
             console.log(palette)
+
+            const paletteToCanvas = await html2canvas(palette)
+
+            const image = new Image()
+            image.src = paletteToCanvas.toDataURL()
+
+            const link = document.createElement('a')
+            link.href = image.src
+            link.download = 'palette.png'
+
+            link.click()
+        }
+
+        #sendToastMessage(message) {
+            console.log('Send toast')
+            console.log(message)
+            Toastify({
+                text: message,
+                duration: 3000,
+                gravity: 'top',
+                position: 'right',
+                stopOnFocus: true,
+                newWindow: true,
+            }).showToast()
         }
     }
 )
