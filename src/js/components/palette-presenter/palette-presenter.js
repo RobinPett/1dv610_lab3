@@ -33,7 +33,6 @@ template.innerHTML = `
             flex-direction: column;
         }
 
-
     </style>
 
     <html>
