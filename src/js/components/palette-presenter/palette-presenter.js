@@ -18,6 +18,7 @@ template.innerHTML = `
             margin: auto;
             justify-content: center;
             align-items: center;
+            width: min-content;
         }
 
         .palette-colors {
@@ -36,6 +37,7 @@ template.innerHTML = `
     </style>
 
     <html>
+    </div>
         <div id="palette-presenter">
         </div>
     

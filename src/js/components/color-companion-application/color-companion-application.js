@@ -190,6 +190,10 @@ customElements.define('color-companion-application',
         async #savePalette(event) {
             const palette = event.detail
 
+            const paletteSaverElement = palette.querySelector('save-palette')
+            console.log('Palette saver element: ')
+            console.log(paletteSaverElement)
+
             console.log('Save Palette')
             console.log(palette)
 
