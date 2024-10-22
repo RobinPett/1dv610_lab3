@@ -37,7 +37,6 @@ template.innerHTML = `
     </style>
 
     <html>
-    </div>
         <div id="palette-presenter">
         </div>
     
