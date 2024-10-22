@@ -66,7 +66,7 @@ customElements.define('color-companion-application',
         connectedCallback() {
             console.log('ColorCompanion connected to browser')
 
-            this.#imageUploader.addEventListener('file-dropped', (event) => this.#handleDroppedFile(event))
+            this.#imageUploader.addEventListener('file-uploaded', (event) => this.#handleDroppedFile(event))
             this.#colorCompanionApp.addEventListener('parsed-image', (event) => this.#handleParsedImage(event))
             this.#colorCompanionApp.addEventListener('created-palette', (event) => this.#handleCreatedPalette(event))
             this.#colorCompanionApp.addEventListener('new-palette', (event) => this.#getNewPalette(event))

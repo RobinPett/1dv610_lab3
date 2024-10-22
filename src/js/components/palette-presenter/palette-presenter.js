@@ -33,11 +33,9 @@ template.innerHTML = `
             flex-direction: column;
         }
 
-
     </style>
 
     <html>
-    </div>
         <div id="palette-presenter">
         </div>
     

@@ -45,6 +45,10 @@ template.innerHTML = `
             height: auto;
         }
 
+        #image-file-input {
+            display: none;
+        }
+
     </style>
 
     <html>
@@ -53,7 +57,7 @@ template.innerHTML = `
             <p>Upload image</p>
 
             <form>
-                <input type="file" id="imageInput" accept="image/*" visibility=false>
+                <input type="file" id="image-file-input" accept="image/*" visibility="hidden">
             </form>
         </div>
 
@@ -65,6 +69,8 @@ template.innerHTML = `
 customElements.define('image-uploader',
     class extends HTMLElement {
         #imageUploader
+
+        #imageFileInput
         
         #image
 
@@ -79,6 +85,7 @@ customElements.define('image-uploader',
             // Get element in shadow root
             this.#imageUploader = this.shadowRoot.querySelector('#image-uploader')
             this.#image = this.shadowRoot.querySelector('#image')
+            this.#imageFileInput = this.shadowRoot.querySelector('#image-file-input')
         }
 
         /**
@@ -89,6 +96,8 @@ customElements.define('image-uploader',
             this.#imageUploader.addEventListener('dragenter', (event) => this.#handleDragOver(event))
             this.#imageUploader.addEventListener('drop', (event) => this.#handleDrop(event))
             this.#imageUploader.addEventListener('dragleave', (event) => this.#handleDragLeave(event))
+            this.#imageUploader.addEventListener('click', (event) => this.#triggerFilePicker())
+            this.#imageFileInput.addEventListener('change', (event) => this.#handleChosenFile(event))
         }
 
         /**
@@ -123,14 +132,25 @@ customElements.define('image-uploader',
 
             if (filesDropped) {
                 const rawFile = filesDropped[0] // 1st file
-
+    
                 this.#checkFileValidity(rawFile)
-
                 const file = rawFile.getAsFile()
-
-                const fileDroppedEvent = new window.CustomEvent('file-dropped', { detail: file, bubbles: true })
-                this.dispatchEvent(fileDroppedEvent)
+                this.#sendFileUploadedEvent(file)
             }
+        }
+
+        #triggerFilePicker() {
+            this.#imageFileInput.click()
+        }
+
+        #handleChosenFile(event) {
+            const file = event.target.files[0] // first file
+            this.#sendFileUploadedEvent(file)
+        }
+
+        #sendFileUploadedEvent(file) {
+            const fileUploaded = new window.CustomEvent('file-uploaded', { detail: file, bubbles: true })
+            this.dispatchEvent(fileUploaded)
         }
 
         /**
