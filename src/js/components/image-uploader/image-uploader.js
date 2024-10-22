@@ -45,6 +45,10 @@ template.innerHTML = `
             height: auto;
         }
 
+        #image-input {
+            display: none;
+        }
+
     </style>
 
     <html>
@@ -53,7 +57,7 @@ template.innerHTML = `
             <p>Upload image</p>
 
             <form>
-                <input type="file" id="imageInput" accept="image/*" visibility=false>
+                <input type="file" id="image-input" accept="image/*" visibility="hidden">
             </form>
         </div>
 
@@ -89,6 +93,7 @@ customElements.define('image-uploader',
             this.#imageUploader.addEventListener('dragenter', (event) => this.#handleDragOver(event))
             this.#imageUploader.addEventListener('drop', (event) => this.#handleDrop(event))
             this.#imageUploader.addEventListener('dragleave', (event) => this.#handleDragLeave(event))
+            this.#imageUploader.addEventListener('click', (event) => this.#triggerFilePicker())
         }
 
         /**
@@ -131,6 +136,10 @@ customElements.define('image-uploader',
                 const fileDroppedEvent = new window.CustomEvent('file-dropped', { detail: file, bubbles: true })
                 this.dispatchEvent(fileDroppedEvent)
             }
+        }
+
+        #triggerFilePicker() {
+            console.log('Upload file')
         }
 
         /**
