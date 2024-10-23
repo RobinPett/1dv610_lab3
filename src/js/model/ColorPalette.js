@@ -67,10 +67,6 @@ class ColorPalette {
             const greenHex = green.toString(16).padStart(2, '0')
             const blueHex = blue.toString(16).padStart(2, '0')
 
-            console.log('red:' + 'rgb: ' + red + 'hex: ' + redHex)
-            console.log('green:' + 'rgb: ' + green + 'hex: ' + greenHex)
-            console.log('blue:' + 'rgb: ' + blue + 'hex: ' + blueHex)
-
             hexValues.push('#' + redHex + greenHex + blueHex)
         })
 
