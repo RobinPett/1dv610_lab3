@@ -12,9 +12,6 @@ class ColorPalette {
     constructor(palette) {
         this.#validatePalette(palette)
         this.palette = palette
-
-        console.log('New palette created: ')
-        console.log(this.palette)
     }
 
     /**
