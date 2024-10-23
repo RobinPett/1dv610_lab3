@@ -3,6 +3,8 @@
  */
 
 import { ColorPaletteExtractor } from "color-palette-extractor"
+import { COMPONENTS } from "../../constants/components"
+import { EVENTS } from "../../constants/events"
 
 // Define html template
 const template = document.createElement('template')
@@ -18,7 +20,7 @@ template.innerHTML = `
     </html>
 `
 
-customElements.define('palette-extractor',
+customElements.define(COMPONENTS.PALETTE_EXTRACTOR,
     class extends HTMLElement {        
         #paletteExtractor
 
@@ -77,8 +79,7 @@ customElements.define('palette-extractor',
         }
 
         #sendPaletteEvent() {
-            console.log('Send palette event')
-            const paletteEvent = new window.CustomEvent('created-palette', { detail: this.#extractedColors, bubbles: true })
+            const paletteEvent = new window.CustomEvent(EVENTS.CREATED_PALETTE, { detail: this.#extractedColors, bubbles: true })
             this.dispatchEvent(paletteEvent)
         }
 

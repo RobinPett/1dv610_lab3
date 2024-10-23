@@ -1,8 +1,11 @@
 /**
- * Image uplaoder component.
+ * Image uploader component.
+ * Handles dropped and selected files.
  */
 
 import uploadIcon from './img/upload_icon.svg'
+import { COMPONENTS } from "../../constants/components"
+import { EVENTS } from "../../constants/events"
 
 // Define html template
 const template = document.createElement('template')
@@ -66,7 +69,7 @@ template.innerHTML = `
     </html>
 `
 
-customElements.define('image-uploader',
+customElements.define(COMPONENTS.IMAGE_UPLOADER,
     class extends HTMLElement {
         #imageUploader
 
@@ -113,7 +116,7 @@ customElements.define('image-uploader',
            const events =  ['dragenter', 'dragover', 'dragleave', 'drop']
 
            events.forEach(event => {
-                this.#imageUploader.addEventListener(event, this.#preventDefaults, false)
+                this.#imageUploader.addEventListener(event, this.#preventDefaults, false) // TODO - Behövs detta ens?
            })
         }
 
@@ -127,7 +130,6 @@ customElements.define('image-uploader',
         }
 
         #handleDrop(event) {
-            console.log('DROP EVENT')
             const filesDropped = event.dataTransfer.items
 
             if (filesDropped) {
@@ -144,12 +146,12 @@ customElements.define('image-uploader',
         }
 
         #handleChosenFile(event) {
-            const file = event.target.files[0] // first file
+            const file = event.target.files[0] // 1st file
             this.#sendFileUploadedEvent(file)
         }
 
         #sendFileUploadedEvent(file) {
-            const fileUploaded = new window.CustomEvent('file-uploaded', { detail: file, bubbles: true })
+            const fileUploaded = new window.CustomEvent(EVENTS.FILE_UPLOADED, { detail: file, bubbles: true })
             this.dispatchEvent(fileUploaded)
         }
 
@@ -167,7 +169,5 @@ customElements.define('image-uploader',
         #handleDragLeave() {
             console.log('Set styling back to original')
         }
-
-
     }
 )

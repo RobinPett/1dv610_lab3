@@ -6,6 +6,8 @@
 import ColorPalette from '../../model/ColorPalette'
 import '../save-palette'
 import '../hexvalue-presenter'
+import { COMPONENTS } from "../../constants/components"
+import { EVENTS } from "../../constants/events"
 
 // Define html template
 const template = document.createElement('template')
@@ -42,7 +44,7 @@ template.innerHTML = `
     </html>
 `
 
-customElements.define('palette-presenter',
+customElements.define(COMPONENTS.PALETTE_PRESENTER,
     class extends HTMLElement {        
         #palettePresenter
 
@@ -125,21 +127,21 @@ customElements.define('palette-presenter',
 
         #createHexPresenter(index) {
             const hexValue = this.#hexValues[index]
-            const hexPresenter = document.createElement('hexvalue-presenter')
+            const hexPresenter = document.createElement(COMPONENTS.HEXVALUE_PRESENTER)
             hexPresenter.setAttribute('value', hexValue)
             hexPresenter.hexValue = hexValue
             return hexPresenter
         }
 
         #addSaveButton() {
-            const saveButton = document.createElement('save-palette')
+            const saveButton = document.createElement(COMPONENTS.SAVE_PALETTE)
             saveButton.style.margin = '1em'
             this.#saveButton = saveButton
             this.#palettePresenter.appendChild(saveButton)
         }
 
         #sendSavePaletteEvent() {
-            const savePaletteEvent = new window.CustomEvent('save-palette', { detail: this.#palettePresenter, bubbles: true })
+            const savePaletteEvent = new window.CustomEvent(EVENTS.SAVE_PALETTE, { detail: this.#palettePresenter, bubbles: true })
             this.dispatchEvent(savePaletteEvent)
         }
 
@@ -148,7 +150,7 @@ customElements.define('palette-presenter',
          */
         connectedCallback() {
             this.#saveButton.addEventListener('click', (event) => { this.#sendSavePaletteEvent(event)})
-            this.#palettePresenter.addEventListener('hex-copied', () => this.dispatchEvent(new window.CustomEvent('hex-copied', {bubbles: true}))) 
+            this.#palettePresenter.addEventListener(EVENTS.HEX_COPIED, () => this.dispatchEvent(new window.CustomEvent(EVENTS.HEX_COPIED, { bubbles: true }))) 
         }
 
         /**
