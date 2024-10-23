@@ -1,7 +1,7 @@
 /**
  * Color Companion Main Application
  */
-
+import { COMPONENTS } from '../../constants/components'
 import '../image-uploader'
 import '../image-presenter'
 import '../palette-extractor'
@@ -32,7 +32,7 @@ template.innerHTML = `
     </html>
 `
 
-customElements.define('color-companion-application',
+customElements.define(COMPONENTS.COLOR_COMPANION_APPLICATION,
     class extends HTMLElement {
         #colorCompanionApp
 
@@ -92,20 +92,16 @@ customElements.define('color-companion-application',
          * Clear previous image and palette from application.
          */
         #clearPreviousImage() {
-            const paletteComponent = 'palette-presenter'
-            const imageComponent = 'image-presenter'
-            const uiComponent = 'user-interface'
-
-            if (this.#isAlreadyDisplayingComponent(imageComponent)) {
-                this.#removeComponent(imageComponent)
+            if (this.#isAlreadyDisplayingComponent(COMPONENTS.IMAGE_PRESENTER)) {
+                this.#removeComponent(COMPONENTS.IMAGE_PRESENTER)
             }
 
-            if (this.#isAlreadyDisplayingComponent(paletteComponent)) {
-                this.#removeComponent(paletteComponent)
+            if (this.#isAlreadyDisplayingComponent(COMPONENTS.PALETTE_PRESENTER)) {
+                this.#removeComponent(COMPONENTS.PALETTE_PRESENTER)
             }
 
-            if (this.#isAlreadyDisplayingComponent(uiComponent)) {
-                this.#removeComponent(uiComponent)
+            if (this.#isAlreadyDisplayingComponent(COMPONENTS.USER_INTERFACE)) {
+                this.#removeComponent(COMPONENTS.USER_INTERFACE)
             }
         }
 
@@ -122,13 +118,13 @@ customElements.define('color-companion-application',
         }
 
         #createImagePresenter(file) {
-            this.#imagePresenter = document.createElement('image-presenter')
+            this.#imagePresenter = document.createElement(COMPONENTS.IMAGE_PRESENTER)
             this.#imagePresenter.image = file
             this.#colorCompanionApp.appendChild(this.#imagePresenter)
         }
 
         #createUserInterface() {
-            this.#userInterface = document.createElement('user-interface')
+            this.#userInterface = document.createElement(COMPONENTS.USER_INTERFACE)
             this.#colorCompanionApp.appendChild(this.#userInterface)
         }
 
@@ -140,7 +136,7 @@ customElements.define('color-companion-application',
         #handleParsedImage(event) {
             const imageElement = event.detail
 
-            this.#paletteExtractor = document.createElement('palette-extractor')
+            this.#paletteExtractor = document.createElement(COMPONENTS.PALETTE_EXTRACTOR)
             this.#paletteExtractor.imageElement = imageElement
 
 
@@ -158,7 +154,7 @@ customElements.define('color-companion-application',
         }
 
         #createPalettePresenter(palette) {
-            this.#palettePresenter = document.createElement('palette-presenter')
+            this.#palettePresenter = document.createElement(COMPONENTS.PALETTE_PRESENTER)
             this.#palettePresenter.colorPalette = palette
 
             this.#colorCompanionApp.appendChild(this.#palettePresenter)
@@ -180,23 +176,13 @@ customElements.define('color-companion-application',
         }
 
         #clearPalette() {
-            const paletteComponent = 'palette-presenter'
-
-            if (this.#isAlreadyDisplayingComponent(paletteComponent)) {
-                this.#removeComponent(paletteComponent)
+            if (this.#isAlreadyDisplayingComponent(COMPONENTS.PALETTE_PRESENTER)) {
+                this.#removeComponent(COMPONENTS.PALETTE_PRESENTER)
             }
         }
 
         async #savePalette(event) {
             const palette = event.detail
-
-            const paletteSaverElement = palette.querySelector('save-palette')
-            console.log('Palette saver element: ')
-            console.log(paletteSaverElement)
-
-            console.log('Save Palette')
-            console.log(palette)
-
             const paletteToCanvas = await html2canvas(palette)
 
             const image = new Image()
@@ -210,8 +196,6 @@ customElements.define('color-companion-application',
         }
 
         #displayToastMessage(message) {
-            console.log('Send toast')
-            console.log(message)
             Toastify({
                 text: message,
                 duration: 3000,
