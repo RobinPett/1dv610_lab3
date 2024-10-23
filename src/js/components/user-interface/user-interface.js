@@ -2,15 +2,14 @@
  * User interface component.
  */
 
+import { COMPONENTS } from "../../constants/components"
+import { EVENTS } from "../../constants/events"
+
 // Define html template
 const template = document.createElement('template')
 
 template.innerHTML = `
     <style>
-        #user-interface {
-
-        }
-
         button {
             border-radius: 1em;
             border: solid 1px rgba(0, 0, 0, 0.1);
@@ -47,7 +46,7 @@ template.innerHTML = `
     </html>
 `
 
-customElements.define('user-interface',
+customElements.define(COMPONENTS.USER_INTERFACE,
     class extends HTMLElement {        
         #userInterface
 
@@ -66,7 +65,6 @@ customElements.define('user-interface',
 
             // Get element in shadow root
             this.#userInterface = this.shadowRoot.querySelector('#user-interface')
-
             this.#defaultButton = this.shadowRoot.querySelector('#default')
             this.#brightButton = this.shadowRoot.querySelector('#bright')
             this.#darkButton = this.shadowRoot.querySelector('#dark')
@@ -92,7 +90,7 @@ customElements.define('user-interface',
         #sendNewPaletteEvent(event) {
             const buttonPressed = event.target.id
 
-            const newPaletteEvent = new window.CustomEvent('new-palette', { detail: buttonPressed, bubbles: true })
+            const newPaletteEvent = new window.CustomEvent(EVENTS.NEW_PALETTE, { detail: buttonPressed, bubbles: true })
             this.dispatchEvent(newPaletteEvent)
         }
 

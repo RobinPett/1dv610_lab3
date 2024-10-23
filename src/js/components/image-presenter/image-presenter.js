@@ -2,6 +2,9 @@
  * Image presenter component.
  */
 
+import { COMPONENTS } from "../../constants/components"
+import { EVENTS } from "../../constants/events"
+
 // Define html template
 const template = document.createElement('template')
 
@@ -22,7 +25,7 @@ template.innerHTML = `
     </html>
 `
 
-customElements.define('image-presenter',
+customElements.define(COMPONENTS.IMAGE_PRESENTER,
     class extends HTMLElement {
         #imagePresenter
 
@@ -60,7 +63,8 @@ customElements.define('image-presenter',
                 this.#presentImage()
                 this.#sendImageEvent()
             } catch (error) {
-                console.error('Failed to present image: ' + error)
+                console.error('Failed to present image: ' + error) // TODO Throw error instead
+                throw new Error()
             }
         }
 
@@ -85,9 +89,7 @@ customElements.define('image-presenter',
         }
 
         #sendImageEvent () {
-            console.log('Creating image event')
-            const parsedImageEvent = new window.CustomEvent('parsed-image', { detail: this.#imageElement, bubbles: true })
-            console.log(parsedImageEvent)
+            const parsedImageEvent = new window.CustomEvent(EVENTS.PARSED_IMAGE, { detail: this.#imageElement, bubbles: true })
             this.dispatchEvent(parsedImageEvent)
         }
 

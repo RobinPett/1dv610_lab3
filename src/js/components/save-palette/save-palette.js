@@ -2,6 +2,8 @@
  * Save-palette component.
  */
 
+import { COMPONENTS } from "../../constants/components"
+
 // Define html template
 const template = document.createElement('template')
 
@@ -32,7 +34,7 @@ template.innerHTML = `
     </html>
 `
 
-customElements.define('save-palette',
+customElements.define(COMPONENTS.SAVE_PALETTE,
     class extends HTMLElement {
         #savePalette
 
