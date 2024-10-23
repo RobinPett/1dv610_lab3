@@ -47,8 +47,6 @@ customElements.define('palette-presenter',
         #palettePresenter
 
         /**
-         * ColorPalette type.
-         * 
          * @type {ColorPalette}
          */
         #colorPalette
