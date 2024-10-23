@@ -1,7 +1,10 @@
 /**
  * Palette presenter component.
- * Creates and displays colored divs and hex values for each color in palette.
+ * Displays hex values and send a custom event when pressed to copy it.
  */
+
+import { COMPONENTS } from "../../constants/components"
+import { EVENTS } from "../../constants/events"
 
 // Define html template
 const template = document.createElement('template')
@@ -48,7 +51,7 @@ template.innerHTML = `
     </html>
 `
 
-customElements.define('hexvalue-presenter',
+customElements.define(COMPONENTS.HEXVALUE_PRESENTER,
     class extends HTMLElement {        
         #hexValuePresenter
 
@@ -96,7 +99,7 @@ customElements.define('hexvalue-presenter',
         }
 
         #sendHexCopiedEvent() {
-            const hexCopiedEvent = new window.CustomEvent('hex-copied', { bubbles: true })
+            const hexCopiedEvent = new window.CustomEvent(EVENTS.HEX_COPIED, { bubbles: true })
             this.dispatchEvent(hexCopiedEvent)
         }
 
