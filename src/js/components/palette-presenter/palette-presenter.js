@@ -3,8 +3,7 @@
  * Creates and displays colored divs and hex values for each color in palette.
  */
 
-import ColorPalette from '../../model/ColorPalette'
-import '../save-palette'
+import '../save-palette-button'
 import '../hexvalue-presenter'
 import { COMPONENTS } from "../../constants/components"
 import { EVENTS } from "../../constants/events"
@@ -134,10 +133,9 @@ customElements.define(COMPONENTS.PALETTE_PRESENTER,
         }
 
         #addSaveButton() {
-            const saveButton = document.createElement(COMPONENTS.SAVE_PALETTE)
-            saveButton.style.margin = '1em'
-            this.#saveButton = saveButton
-            this.#palettePresenter.appendChild(saveButton)
+            this.#saveButton = document.createElement(COMPONENTS.SAVE_PALETTE_BUTTON)
+            this.#saveButton.style.margin = '1em'
+            this.#palettePresenter.after(this.#saveButton)
         }
 
         #sendSavePaletteEvent() {

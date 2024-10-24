@@ -63,8 +63,7 @@ customElements.define(COMPONENTS.IMAGE_PRESENTER,
                 this.#presentImage()
                 this.#sendImageEvent()
             } catch (error) {
-                console.error('Failed to present image: ' + error) // TODO Throw error instead
-                throw new Error()
+                throw new Error('Failed to present image: ' + error)
             }
         }
 

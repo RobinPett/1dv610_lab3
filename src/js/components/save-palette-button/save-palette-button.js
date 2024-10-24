@@ -29,12 +29,12 @@ template.innerHTML = `
 
     <html>
         <div id="save-palette">
-            <button>+</button>
+            <button>Save palette</button>
         </div>
     </html>
 `
 
-customElements.define(COMPONENTS.SAVE_PALETTE,
+customElements.define(COMPONENTS.SAVE_PALETTE_BUTTON,
     class extends HTMLElement {
 
         constructor() {

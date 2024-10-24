@@ -6,7 +6,7 @@ import '../image-uploader'
 import '../image-presenter'
 import '../palette-extractor'
 import '../palette-presenter'
-import '../user-interface'
+import '../palette-picker'
 import ColorPalette from '../../model/ColorPalette'
 import html2canvas from 'html2canvas'
 import Toastify from 'toastify-js'
@@ -27,7 +27,6 @@ template.innerHTML = `
 
     <html>
         <div id="color-companion-app">
-            <p>Main app</p>
             <image-uploader id="image-uploader"> </image-uploader>
         </div>
     </html>
@@ -45,7 +44,7 @@ customElements.define(COMPONENTS.COLOR_COMPANION_APPLICATION,
 
         #palettePresenter
 
-        #userInterface
+        #palettePicker
 
         constructor() {
             super()
@@ -101,8 +100,8 @@ customElements.define(COMPONENTS.COLOR_COMPANION_APPLICATION,
                 this.#removeComponent(COMPONENTS.PALETTE_PRESENTER)
             }
 
-            if (this.#isAlreadyDisplayingComponent(COMPONENTS.USER_INTERFACE)) {
-                this.#removeComponent(COMPONENTS.USER_INTERFACE)
+            if (this.#isAlreadyDisplayingComponent(COMPONENTS.PALETTE_PICKER)) {
+                this.#removeComponent(COMPONENTS.PALETTE_PICKER)
             }
         }
 
@@ -125,8 +124,8 @@ customElements.define(COMPONENTS.COLOR_COMPANION_APPLICATION,
         }
 
         #createUserInterface() {
-            this.#userInterface = document.createElement(COMPONENTS.USER_INTERFACE)
-            this.#colorCompanionApp.appendChild(this.#userInterface)
+            this.#palettePicker = document.createElement(COMPONENTS.PALETTE_PICKER)
+            this.#colorCompanionApp.appendChild(this.#palettePicker)
         }
 
         /**
@@ -192,7 +191,6 @@ customElements.define(COMPONENTS.COLOR_COMPANION_APPLICATION,
             const link = document.createElement('a')
             link.href = image.src
             link.download = 'palette.png'
-
             link.click()
         }
 

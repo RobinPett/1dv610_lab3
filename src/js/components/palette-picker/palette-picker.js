@@ -33,7 +33,7 @@ template.innerHTML = `
     </style>
 
     <html>
-        <div id="user-interface">
+        <div id="palette-picker">
             <div id="palette-selector">
                 <p>Select palette</p>
                 <button id="default" class="focus" autofocus>Default</button>
@@ -46,7 +46,7 @@ template.innerHTML = `
     </html>
 `
 
-customElements.define(COMPONENTS.USER_INTERFACE,
+customElements.define(COMPONENTS.PALETTE_PICKER,
     class extends HTMLElement {        
         #defaultButton
         #brightButton
