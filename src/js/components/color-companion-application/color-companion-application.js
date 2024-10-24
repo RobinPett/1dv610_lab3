@@ -8,10 +8,11 @@ import '../palette-extractor'
 import '../palette-presenter'
 import '../palette-picker'
 import ColorPalette from '../../model/ColorPalette'
+import PaletteExtractor from '../../utils/PaletteExtractor'
 import html2canvas from 'html2canvas'
-import Toastify from 'toastify-js'
-import "toastify-js/src/toastify.css"
+import Toast from '../../utils/Toast'
 import { EVENTS } from '../../constants/events'
+import BaseComponent from '../BaseComponent'
 
 // Define html template
 const template = document.createElement('template')
@@ -33,7 +34,7 @@ template.innerHTML = `
 `
 
 customElements.define(COMPONENTS.COLOR_COMPANION_APPLICATION,
-    class extends HTMLElement {
+    class extends BaseComponent {
         #colorCompanionApp
 
         #imageUploader
@@ -45,6 +46,8 @@ customElements.define(COMPONENTS.COLOR_COMPANION_APPLICATION,
         #palettePresenter
 
         #palettePicker
+
+        #toast
 
         constructor() {
             super()
@@ -58,6 +61,9 @@ customElements.define(COMPONENTS.COLOR_COMPANION_APPLICATION,
             this.#colorCompanionApp = this.shadowRoot.querySelector('#color-companion-app')
             this.#imageUploader = this.shadowRoot.querySelector('#image-uploader')
 
+            this.#paletteExtractor = new PaletteExtractor()
+            this.#toast = new Toast()
+
         }
 
         /**
@@ -68,16 +74,10 @@ customElements.define(COMPONENTS.COLOR_COMPANION_APPLICATION,
 
             this.#imageUploader.addEventListener(EVENTS.FILE_UPLOADED, (event) => this.#handleDroppedFile(event))
             this.#colorCompanionApp.addEventListener(EVENTS.PARSED_IMAGE, (event) => this.#handleParsedImage(event))
-            this.#colorCompanionApp.addEventListener(EVENTS.CREATED_PALETTE, (event) => this.#handleCreatedPalette(event))
             this.#colorCompanionApp.addEventListener(EVENTS.NEW_PALETTE, (event) => this.#getNewPalette(event))
             this.#colorCompanionApp.addEventListener(EVENTS.SAVE_PALETTE, (event) => this.#savePalette(event))
-            this.#colorCompanionApp.addEventListener(EVENTS.HEX_COPIED, () => this.#displayToastMessage('Color copied')) // Flash message
-        }
-
-        /**
-         * Called when component is disconnected from the DOM
-         */
-        disconnectedCallback() {
+            this.#colorCompanionApp.addEventListener(EVENTS.HEX_COPIED, () => this.#displayToastMessage('Color copied'))
+            this.#colorCompanionApp.addEventListener(EVENTS.ERROR, (event) => this.#displayToastError(event.detail))
         }
 
         #handleDroppedFile(event) {
@@ -128,26 +128,24 @@ customElements.define(COMPONENTS.COLOR_COMPANION_APPLICATION,
             this.#colorCompanionApp.appendChild(this.#palettePicker)
         }
 
-        /**
-         * Handle when an image has been parced ---- CHANGE NAME?!?! EXTRACTPALETTE ?!
-         * 
-         * @param {*} event 
-         */
-        #handleParsedImage(event) {
-            const imageElement = event.detail
-
-            this.#paletteExtractor = document.createElement(COMPONENTS.PALETTE_EXTRACTOR)
-            this.#paletteExtractor.imageElement = imageElement
-            this.#colorCompanionApp.appendChild(this.#paletteExtractor)
+        async #handleParsedImage(event) {
+            try {
+                const imageElement = event.detail
+                this.#paletteExtractor.setImageElement(imageElement)
+                const palette = await this.#paletteExtractor.getPalette()
+                this.#handlePaletteCreation(palette)
+            } catch (error) {
+                this.#displayToastError(error.message)
+            }
         }
 
-        /**
-         * Handles color palette event. ------ CHANGE!!!!
-         */
-        #handleCreatedPalette(event) {
-            const createdPalette = event.detail
-            const colorPalette = new ColorPalette(createdPalette)
-            this.#createPalettePresenter(colorPalette)
+        #handlePaletteCreation(createdPalette) {
+            try {
+                const colorPalette = new ColorPalette(createdPalette)
+                this.#createPalettePresenter(colorPalette)   
+            } catch (error) {
+                this.#displayToastError(error.message)
+            }
         }
 
         #createPalettePresenter(palette) {
@@ -158,21 +156,20 @@ customElements.define(COMPONENTS.COLOR_COMPANION_APPLICATION,
         }
 
         #getNewPalette(event) {
-            const newPalette = event.detail
-            let newExtractedPalette
-
-            if (this.#paletteExtractor) {
-                newExtractedPalette = this.#paletteExtractor.getNewPalette(newPalette)
+            try {
+                const newPalette = event.detail
+                let newExtractedPalette
+    
+                this.#clearPalette()
+    
+                if (this.#paletteExtractor) {
+                    newExtractedPalette = this.#paletteExtractor.getNewPalette(newPalette)
+                }
+    
+                this.#handlePaletteCreation(newExtractedPalette)   
+            } catch (error) {
+                this.#displayToastError(error.message)
             }
-
-            console.log('New palette: ')
-            console.log(newExtractedPalette)
-
-            const colorPalette = new ColorPalette(newExtractedPalette)
-
-            this.#clearPalette()
-
-            this.#createPalettePresenter(colorPalette)
         }
 
         #clearPalette() {
@@ -193,16 +190,13 @@ customElements.define(COMPONENTS.COLOR_COMPANION_APPLICATION,
             link.download = 'palette.png'
             link.click()
         }
-
+        
         #displayToastMessage(message) {
-            Toastify({
-                text: message,
-                duration: 3000,
-                gravity: 'top',
-                position: 'right',
-                stopOnFocus: true,
-                newWindow: true,
-            }).showToast()
+            this.#toast.showMessage(message)
+        }
+
+        #displayToastError(message) {
+            this.#toast.showError(message)
         }
     }
 )

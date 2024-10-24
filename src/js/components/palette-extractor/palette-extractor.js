@@ -5,6 +5,7 @@
 import { ColorPaletteExtractor } from "color-palette-extractor"
 import { COMPONENTS } from "../../constants/components"
 import { EVENTS } from "../../constants/events"
+import BaseComponent from "../BaseComponent"
 
 // Define html template
 const template = document.createElement('template')
@@ -21,7 +22,7 @@ template.innerHTML = `
 `
 
 customElements.define(COMPONENTS.PALETTE_EXTRACTOR,
-    class extends HTMLElement {        
+    class extends BaseComponent {        
         #paletteExtractorModule 
 
         #imageElement
@@ -49,22 +50,32 @@ customElements.define(COMPONENTS.PALETTE_EXTRACTOR,
          */
 
         set imageElement(imageElement) {
+            try {
+                this.#checkImageElement(imageElement)
+                this.#imageElement = imageElement
+                this.#handlePalette() 
+            } catch (error) {
+                this.dispatchError('Failed to load imageElement in extractor' + error.message)
+            }
+        } 
+
+        #checkImageElement(imageElement) {
             if (!(imageElement instanceof HTMLImageElement)) {
                 throw new TypeError('imageElement must be of type HTMLImageElement.')
             }
-
-            this.#imageElement = imageElement
-
-            this.#handlePalette()
-        } 
+        }
 
         async #handlePalette() {
-            this.#extractedColors = await this.#extractColors()
-            this.#sendPaletteEvent()
+            try {
+                this.#extractedColors = await this.#extractColors()
+                this.#sendPaletteEvent()
+            } catch (error) {
+                this.dispatchError('Failed to extract colors: ' + error.message)
+            }
         }
 
         async #extractColors() {
-            const imageUrl = this.#imageElement.src // As base64 - Test!!!!!
+            const imageUrl = this.#imageElement.src // base64
 
             const image = this.#paletteExtractorModule.loadImage(imageUrl)
             const pixels = await image.getPixels()
@@ -81,40 +92,25 @@ customElements.define(COMPONENTS.PALETTE_EXTRACTOR,
         }
 
         getNewPalette(palette) {
-            if (palette === 'default') {
-                return this.#palette.getPalette()
-            }
-
-            if (palette === 'bright') {
-                return this.#palette.getBrightPalette()
-            }
-
-            if (palette === 'dark') {
-                return this.#palette.getDarkPalette()
-            }
-
-            if (palette === 'muted') {
-                return this.#palette.getMutedPalette()
+            try {
+                if (palette === 'default') {
+                    return this.#palette.getPalette()
+                }
+    
+                if (palette === 'bright') {
+                    return this.#palette.getBrightPalette()
+                }
+    
+                if (palette === 'dark') {
+                    return this.#palette.getDarkPalette()
+                }
+    
+                if (palette === 'muted') {
+                    return this.#palette.getMutedPalette()
+                }   
+            } catch (error) {
+                this.dispatchError('Failed to extract colors: ' + error.message)
             }
         }
-
-        
-
-
-
-
-        /**
-         * Called when component is connected to the DOM
-         */
-        connectedCallback() {
-
-        }
-
-        /**
-         * Called when component is disconnected from the DOM
-         */
-        disconnectedCallback() {
-        }
-
     }
 )

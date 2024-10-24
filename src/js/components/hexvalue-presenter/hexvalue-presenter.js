@@ -5,6 +5,7 @@
 
 import { COMPONENTS } from "../../constants/components"
 import { EVENTS } from "../../constants/events"
+import BaseComponent from "../BaseComponent"
 
 // Define html template
 const template = document.createElement('template')
@@ -52,7 +53,7 @@ template.innerHTML = `
 `
 
 customElements.define(COMPONENTS.HEXVALUE_PRESENTER,
-    class extends HTMLElement {        
+    class extends BaseComponent {        
         #hexText
 
         /**
@@ -70,7 +71,6 @@ customElements.define(COMPONENTS.HEXVALUE_PRESENTER,
 
             // Get element in shadow root
             this.#hexText = this.shadowRoot.querySelector('#hex-text')
-
         }
 
         /**
@@ -106,12 +106,5 @@ customElements.define(COMPONENTS.HEXVALUE_PRESENTER,
         connectedCallback() {
             this.#hexText.addEventListener('click', () => this.#copyHexValue())
         }
-
-        /**
-         * Called when component is disconnected from the DOM
-         */
-        disconnectedCallback() {
-        }
-
     }
 )

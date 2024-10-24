@@ -6,6 +6,7 @@
 import uploadIcon from './img/upload_icon.svg'
 import { COMPONENTS } from "../../constants/components"
 import { EVENTS } from "../../constants/events"
+import BaseComponent from '../BaseComponent'
 
 // Define html template
 const template = document.createElement('template')
@@ -70,7 +71,7 @@ template.innerHTML = `
 `
 
 customElements.define(COMPONENTS.IMAGE_UPLOADER,
-    class extends HTMLElement {
+    class extends BaseComponent {
         #imageUploader
 
         #imageFileInput
@@ -93,17 +94,9 @@ customElements.define(COMPONENTS.IMAGE_UPLOADER,
          */
         connectedCallback() {
             this.#preventDefaultBehaviour()
-            this.#imageUploader.addEventListener('dragenter', (event) => this.#handleDragOver(event))
             this.#imageUploader.addEventListener('drop', (event) => this.#handleDrop(event))
-            this.#imageUploader.addEventListener('dragleave', (event) => this.#handleDragLeave(event))
-            this.#imageUploader.addEventListener('click', (event) => this.#triggerFilePicker())
+            this.#imageUploader.addEventListener('click', () => this.#triggerFilePicker())
             this.#imageFileInput.addEventListener('change', (event) => this.#handleChosenFile(event))
-        }
-
-        /**
-         * Called when component is disconnected from the DOM
-         */
-        disconnectedCallback() {
         }
 
         /**
@@ -122,19 +115,19 @@ customElements.define(COMPONENTS.IMAGE_UPLOADER,
             event.stopPropagation()
         }
 
-        #handleDragOver() {
-            console.log('Set styling')
-        }
-
         #handleDrop(event) {
-            const filesDropped = event.dataTransfer.items
+            try {
+                const filesDropped = event.dataTransfer.items
 
-            if (filesDropped) {
-                const rawFile = filesDropped[0] // 1st file
-    
-                this.#checkFileValidity(rawFile)
-                const file = rawFile.getAsFile()
-                this.#sendFileUploadedEvent(file)
+                if (filesDropped) {
+                    const rawFile = filesDropped[0] // 1st file
+        
+                    this.#checkFileValidity(rawFile)
+                    const file = rawFile.getAsFile()
+                    this.#sendFileUploadedEvent(file)
+                }
+            } catch (error) {
+                this.dispatchError(error.message)
             }
         }
 
@@ -143,8 +136,13 @@ customElements.define(COMPONENTS.IMAGE_UPLOADER,
         }
 
         #handleChosenFile(event) {
-            const file = event.target.files[0] // 1st file
-            this.#sendFileUploadedEvent(file)
+            try {
+                const file = event.target.files[0] // 1st file
+                this.#checkFileValidity(file)
+                this.#sendFileUploadedEvent(file)   
+            } catch (error) {
+                this.dispatchError(error.message)
+            }
         }
 
         #sendFileUploadedEvent(file) {
@@ -155,16 +153,12 @@ customElements.define(COMPONENTS.IMAGE_UPLOADER,
         /**
          * Check if file is an image.
          * 
-         * @param {object} rawFile 
+         * @param {object} file 
          */
-        #checkFileValidity(rawFile) {
-            if (!rawFile.type.startsWith('image/')) {
+        #checkFileValidity(file) {
+            if (!file.type.startsWith('image/')) {
                 throw new TypeError('File must be an image')
             }
-        }
-
-        #handleDragLeave() {
-            console.log('Set styling back to original')
         }
     }
 )

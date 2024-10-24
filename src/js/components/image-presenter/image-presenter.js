@@ -4,6 +4,7 @@
 
 import { COMPONENTS } from "../../constants/components"
 import { EVENTS } from "../../constants/events"
+import BaseComponent from "../BaseComponent"
 
 // Define html template
 const template = document.createElement('template')
@@ -26,7 +27,7 @@ template.innerHTML = `
 `
 
 customElements.define(COMPONENTS.IMAGE_PRESENTER,
-    class extends HTMLElement {
+    class extends BaseComponent {
         #imagePresenter
 
         #image
@@ -63,7 +64,7 @@ customElements.define(COMPONENTS.IMAGE_PRESENTER,
                 this.#presentImage()
                 this.#sendImageEvent()
             } catch (error) {
-                throw new Error('Failed to present image: ' + error)
+                this.dispatchError(error)
             }
         }
 
@@ -74,7 +75,6 @@ customElements.define(COMPONENTS.IMAGE_PRESENTER,
                 reader.onloadend = () => {
                     this.#imageElement = document.createElement('img')
                     this.#imageElement.src = reader.result
-
                     resolve()
                 }
 
@@ -90,17 +90,5 @@ customElements.define(COMPONENTS.IMAGE_PRESENTER,
         #sendImageEvent () {
             const parsedImageEvent = new window.CustomEvent(EVENTS.PARSED_IMAGE, { detail: this.#imageElement, bubbles: true })
             this.dispatchEvent(parsedImageEvent)
-        }
-
-        /**
-         * Called when component is connected to the DOM
-         */
-        connectedCallback() {
-        }
-
-        /**
-         * Called when component is disconnected from the DOM
-         */
-        disconnectedCallback() {
         }
     })

@@ -3,6 +3,7 @@
  */
 
 import { COMPONENTS } from "../../constants/components"
+import BaseComponent from "../BaseComponent"
 
 // Define html template
 const template = document.createElement('template')
@@ -35,7 +36,7 @@ template.innerHTML = `
 `
 
 customElements.define(COMPONENTS.SAVE_PALETTE_BUTTON,
-    class extends HTMLElement {
+    class extends BaseComponent {
 
         constructor() {
             super()
@@ -44,19 +45,5 @@ customElements.define(COMPONENTS.SAVE_PALETTE_BUTTON,
             // Appens template to shadow Root
             this.attachShadow({ mode: 'open' })
                 .appendChild(template.content.cloneNode(true))
-        }
-
-
-
-        /**
-         * Called when component is connected to the DOM
-         */
-        connectedCallback() {
-        }
-
-        /**
-         * Called when component is disconnected from the DOM
-         */
-        disconnectedCallback() {
         }
     })

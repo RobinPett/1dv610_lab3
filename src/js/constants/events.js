@@ -4,5 +4,6 @@ export const EVENTS = {
     CREATED_PALETTE: 'created-palette',
     NEW_PALETTE: 'new-palette',
     SAVE_PALETTE: 'save-palette',
-    HEX_COPIED: 'hex-copied'
+    HEX_COPIED: 'hex-copied',
+    ERROR: 'error'
 }

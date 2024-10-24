@@ -4,6 +4,7 @@
 
 import { COMPONENTS } from "../../constants/components"
 import { EVENTS } from "../../constants/events"
+import BaseComponent from "../BaseComponent"
 
 // Define html template
 const template = document.createElement('template')
@@ -47,7 +48,7 @@ template.innerHTML = `
 `
 
 customElements.define(COMPONENTS.PALETTE_PICKER,
-    class extends HTMLElement {        
+    class extends BaseComponent {        
         #defaultButton
         #brightButton
         #darkButton
@@ -76,12 +77,6 @@ customElements.define(COMPONENTS.PALETTE_PICKER,
             this.#brightButton.addEventListener('click', (event) => this.#sendNewPaletteEvent(event))
             this.#darkButton.addEventListener('click', (event) => this.#sendNewPaletteEvent(event))
             this.#mutedButton.addEventListener('click', (event) => this.#sendNewPaletteEvent(event))
-        }
-
-        /**
-         * Called when component is disconnected from the DOM
-         */
-        disconnectedCallback() {
         }
 
         #sendNewPaletteEvent(event) {

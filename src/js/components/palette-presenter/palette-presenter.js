@@ -7,6 +7,7 @@ import '../save-palette-button'
 import '../hexvalue-presenter'
 import { COMPONENTS } from "../../constants/components"
 import { EVENTS } from "../../constants/events"
+import BaseComponent from '../BaseComponent'
 
 // Define html template
 const template = document.createElement('template')
@@ -44,7 +45,7 @@ template.innerHTML = `
 `
 
 customElements.define(COMPONENTS.PALETTE_PRESENTER,
-    class extends HTMLElement {        
+    class extends BaseComponent {        
         #palettePresenter
 
         /**
@@ -150,12 +151,5 @@ customElements.define(COMPONENTS.PALETTE_PRESENTER,
             this.#saveButton.addEventListener('click', (event) => { this.#sendSavePaletteEvent(event)})
             this.#palettePresenter.addEventListener(EVENTS.HEX_COPIED, () => this.dispatchEvent(new window.CustomEvent(EVENTS.HEX_COPIED, { bubbles: true }))) 
         }
-
-        /**
-         * Called when component is disconnected from the DOM
-         */
-        disconnectedCallback() {
-        }
-
     }
 )
