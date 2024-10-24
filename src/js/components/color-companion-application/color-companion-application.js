@@ -8,6 +8,7 @@ import '../palette-extractor'
 import '../palette-presenter'
 import '../palette-picker'
 import ColorPalette from '../../model/ColorPalette'
+import PaletteExtractor from '../../utils/PaletteExtractor'
 import html2canvas from 'html2canvas'
 import Toast from '../../utils/Toast'
 import { EVENTS } from '../../constants/events'
@@ -60,6 +61,7 @@ customElements.define(COMPONENTS.COLOR_COMPANION_APPLICATION,
             this.#colorCompanionApp = this.shadowRoot.querySelector('#color-companion-app')
             this.#imageUploader = this.shadowRoot.querySelector('#image-uploader')
 
+            this.#paletteExtractor = new PaletteExtractor()
             this.#toast = new Toast()
 
         }
@@ -72,7 +74,6 @@ customElements.define(COMPONENTS.COLOR_COMPANION_APPLICATION,
 
             this.#imageUploader.addEventListener(EVENTS.FILE_UPLOADED, (event) => this.#handleDroppedFile(event))
             this.#colorCompanionApp.addEventListener(EVENTS.PARSED_IMAGE, (event) => this.#handleParsedImage(event))
-            this.#colorCompanionApp.addEventListener(EVENTS.CREATED_PALETTE, (event) => this.#handleCreatedPalette(event))
             this.#colorCompanionApp.addEventListener(EVENTS.NEW_PALETTE, (event) => this.#getNewPalette(event))
             this.#colorCompanionApp.addEventListener(EVENTS.SAVE_PALETTE, (event) => this.#savePalette(event))
             this.#colorCompanionApp.addEventListener(EVENTS.HEX_COPIED, () => this.#displayToastMessage('Color copied'))
@@ -127,24 +128,15 @@ customElements.define(COMPONENTS.COLOR_COMPANION_APPLICATION,
             this.#colorCompanionApp.appendChild(this.#palettePicker)
         }
 
-        /**
-         * Handle when an image has been parced ---- CHANGE NAME?!?! EXTRACTPALETTE ?!
-         * 
-         * @param {*} event 
-         */
-        #handleParsedImage(event) {
+        async #handleParsedImage(event) {
             const imageElement = event.detail
 
-            this.#paletteExtractor = document.createElement(COMPONENTS.PALETTE_EXTRACTOR)
-            this.#paletteExtractor.imageElement = imageElement
-            this.#colorCompanionApp.appendChild(this.#paletteExtractor)
+            this.#paletteExtractor.setImageElement(imageElement)
+            const palette = await this.#paletteExtractor.getPalette()
+            this.#handlePaletteCreation(palette)
         }
 
-        /**
-         * Handles color palette event. ------ CHANGE!!!!
-         */
-        #handleCreatedPalette(event) {
-            const createdPalette = event.detail
+        #handlePaletteCreation(createdPalette) {
             const colorPalette = new ColorPalette(createdPalette)
             this.#createPalettePresenter(colorPalette)
         }
@@ -166,9 +158,7 @@ customElements.define(COMPONENTS.COLOR_COMPANION_APPLICATION,
                 newExtractedPalette = this.#paletteExtractor.getNewPalette(newPalette)
             }
 
-            const colorPalette = new ColorPalette(newExtractedPalette)
-
-            this.#createPalettePresenter(colorPalette)
+            this.#handlePaletteCreation(newExtractedPalette)
         }
 
         #clearPalette() {
