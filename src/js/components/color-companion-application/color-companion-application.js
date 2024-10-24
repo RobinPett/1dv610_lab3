@@ -77,7 +77,7 @@ customElements.define(COMPONENTS.COLOR_COMPANION_APPLICATION,
             this.#colorCompanionApp.addEventListener(EVENTS.NEW_PALETTE, (event) => this.#getNewPalette(event))
             this.#colorCompanionApp.addEventListener(EVENTS.SAVE_PALETTE, (event) => this.#savePalette(event))
             this.#colorCompanionApp.addEventListener(EVENTS.HEX_COPIED, () => this.#displayToastMessage('Color copied'))
-            this.#colorCompanionApp.addEventListener(EVENTS.ERROR, (event) => this.#displayToastMessage(event.detail))
+            this.#colorCompanionApp.addEventListener(EVENTS.ERROR, (event) => this.#displayToastError(event.detail))
         }
 
         #handleDroppedFile(event) {
@@ -129,16 +129,23 @@ customElements.define(COMPONENTS.COLOR_COMPANION_APPLICATION,
         }
 
         async #handleParsedImage(event) {
-            const imageElement = event.detail
-
-            this.#paletteExtractor.setImageElement(imageElement)
-            const palette = await this.#paletteExtractor.getPalette()
-            this.#handlePaletteCreation(palette)
+            try {
+                const imageElement = event.detail
+                this.#paletteExtractor.setImageElement(imageElement)
+                const palette = await this.#paletteExtractor.getPalette()
+                this.#handlePaletteCreation(palette)
+            } catch (error) {
+                this.#displayToastError(error.message)
+            }
         }
 
         #handlePaletteCreation(createdPalette) {
-            const colorPalette = new ColorPalette(createdPalette)
-            this.#createPalettePresenter(colorPalette)
+            try {
+                const colorPalette = new ColorPalette(createdPalette)
+                this.#createPalettePresenter(colorPalette)   
+            } catch (error) {
+                this.#displayToastError(error.message)
+            }
         }
 
         #createPalettePresenter(palette) {
@@ -149,16 +156,20 @@ customElements.define(COMPONENTS.COLOR_COMPANION_APPLICATION,
         }
 
         #getNewPalette(event) {
-            const newPalette = event.detail
-            let newExtractedPalette
-
-            this.#clearPalette()
-
-            if (this.#paletteExtractor) {
-                newExtractedPalette = this.#paletteExtractor.getNewPalette(newPalette)
+            try {
+                const newPalette = event.detail
+                let newExtractedPalette
+    
+                this.#clearPalette()
+    
+                if (this.#paletteExtractor) {
+                    newExtractedPalette = this.#paletteExtractor.getNewPalette(newPalette)
+                }
+    
+                this.#handlePaletteCreation(newExtractedPalette)   
+            } catch (error) {
+                this.#displayToastError(error.message)
             }
-
-            this.#handlePaletteCreation(newExtractedPalette)
         }
 
         #clearPalette() {
@@ -182,6 +193,10 @@ customElements.define(COMPONENTS.COLOR_COMPANION_APPLICATION,
         
         #displayToastMessage(message) {
             this.#toast.showMessage(message)
+        }
+
+        #displayToastError(message) {
+            this.#toast.showError(message)
         }
     }
 )

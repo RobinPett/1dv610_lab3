@@ -15,6 +15,18 @@ class Toast {
             newWindow: true,
         }).showToast()
     }
+
+    showError(message) {
+        Toastify({
+            text: message,
+            duration: 3000,
+            gravity: 'top',
+            position: 'right',
+            stopOnFocus: true,
+            newWindow: true,
+            backgroundColor: '#ed4337'
+        }).showToast()
+    }
 }
 
 export default Toast
