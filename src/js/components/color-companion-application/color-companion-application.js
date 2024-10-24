@@ -163,7 +163,7 @@ customElements.define(COMPONENTS.COLOR_COMPANION_APPLICATION,
             let newExtractedPalette
 
             if (this.#paletteExtractor) {
-               newExtractedPalette = this.#paletteExtractor.getNewPalette(newPalette)
+                newExtractedPalette = this.#paletteExtractor.getNewPalette(newPalette)
             }
 
             console.log('New palette: ')

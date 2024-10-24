@@ -22,8 +22,6 @@ template.innerHTML = `
 
 customElements.define(COMPONENTS.PALETTE_EXTRACTOR,
     class extends HTMLElement {        
-        #paletteExtractor
-
         #paletteExtractorModule 
 
         #imageElement
@@ -41,7 +39,6 @@ customElements.define(COMPONENTS.PALETTE_EXTRACTOR,
                 .appendChild(template.content.cloneNode(true))
 
             // Get element in shadow root
-            this.#paletteExtractor = this.shadowRoot.querySelector('#palette-extractor')
             this.#paletteExtractorModule = new ColorPaletteExtractor()
         }
 
