@@ -6,8 +6,6 @@
 >
 > Färgpaletternas färg värden ska kunna kopieras i HEX format.
 >
-> Färgpaletter ska kunna sparas i webbläsaren.
->
 > Färgpaletter ska kunna laddas ned som en bild.
 
 
@@ -32,20 +30,15 @@
 
 ### 3.3 Koddokumentation
 
-> JSDoc används på moduler, metoder och funktioner.
+> JSDoc används på publika moduler, metoder och funktioner.
 >
 > Inline kommentarer används för mer avancerad kod.
 >
+> Clean Code reglerna följs
 
 ## 4\. Externa krav (non-functional external requirements)
 
-### 4.1 Etiska krav
+### 4.1 Lagar & Standarder
 
-> ?
-
-### 4.2 Lagar & Standarder
-
->
-> Ett “Terms and Conditions” dokument kommer skapas för att ge tydlig information om vad som gäller vid användning av plattformen.
 > 
 > Bilder kommer inte lagras för att inte bryta mot upphovsrätten.
