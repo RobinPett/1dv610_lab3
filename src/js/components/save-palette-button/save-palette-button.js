@@ -46,18 +46,4 @@ customElements.define(COMPONENTS.SAVE_PALETTE_BUTTON,
             this.attachShadow({ mode: 'open' })
                 .appendChild(template.content.cloneNode(true))
         }
-
-
-
-        /**
-         * Called when component is connected to the DOM
-         */
-        connectedCallback() {
-        }
-
-        /**
-         * Called when component is disconnected from the DOM
-         */
-        disconnectedCallback() {
-        }
     })

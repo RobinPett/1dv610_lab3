@@ -71,7 +71,6 @@ customElements.define(COMPONENTS.HEXVALUE_PRESENTER,
 
             // Get element in shadow root
             this.#hexText = this.shadowRoot.querySelector('#hex-text')
-
         }
 
         /**
@@ -107,12 +106,5 @@ customElements.define(COMPONENTS.HEXVALUE_PRESENTER,
         connectedCallback() {
             this.#hexText.addEventListener('click', () => this.#copyHexValue())
         }
-
-        /**
-         * Called when component is disconnected from the DOM
-         */
-        disconnectedCallback() {
-        }
-
     }
 )

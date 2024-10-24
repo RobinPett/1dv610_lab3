@@ -160,16 +160,13 @@ customElements.define(COMPONENTS.COLOR_COMPANION_APPLICATION,
             const newPalette = event.detail
             let newExtractedPalette
 
+            this.#clearPalette()
+
             if (this.#paletteExtractor) {
                 newExtractedPalette = this.#paletteExtractor.getNewPalette(newPalette)
             }
 
-            console.log('New palette: ')
-            console.log(newExtractedPalette)
-
             const colorPalette = new ColorPalette(newExtractedPalette)
-
-            this.#clearPalette()
 
             this.#createPalettePresenter(colorPalette)
         }

@@ -79,12 +79,6 @@ customElements.define(COMPONENTS.PALETTE_PICKER,
             this.#mutedButton.addEventListener('click', (event) => this.#sendNewPaletteEvent(event))
         }
 
-        /**
-         * Called when component is disconnected from the DOM
-         */
-        disconnectedCallback() {
-        }
-
         #sendNewPaletteEvent(event) {
             const buttonPressed = event.target.id
 
