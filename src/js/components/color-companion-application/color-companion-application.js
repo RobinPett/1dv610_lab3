@@ -9,7 +9,7 @@ import '../palette-presenter'
 import '../palette-picker'
 import ColorPalette from '../../model/ColorPalette'
 import html2canvas from 'html2canvas'
-import Toastify from 'toastify-js'
+import Toast from '../utils/Toast'
 import "toastify-js/src/toastify.css"
 import { EVENTS } from '../../constants/events'
 
@@ -46,6 +46,8 @@ customElements.define(COMPONENTS.COLOR_COMPANION_APPLICATION,
 
         #palettePicker
 
+        #toast
+
         constructor() {
             super()
 
@@ -57,6 +59,8 @@ customElements.define(COMPONENTS.COLOR_COMPANION_APPLICATION,
             // Get element in shadow root
             this.#colorCompanionApp = this.shadowRoot.querySelector('#color-companion-app')
             this.#imageUploader = this.shadowRoot.querySelector('#image-uploader')
+
+            this.#toast = new Toast()
 
         }
 
@@ -195,14 +199,7 @@ customElements.define(COMPONENTS.COLOR_COMPANION_APPLICATION,
         }
 
         #displayToastMessage(message) {
-            Toastify({
-                text: message,
-                duration: 3000,
-                gravity: 'top',
-                position: 'right',
-                stopOnFocus: true,
-                newWindow: true,
-            }).showToast()
+            this.#toast.showMessage(message)
         }
     }
 )
