@@ -6,6 +6,6 @@ export const COMPONENTS = {
     PALETTE_EXTRACTOR: 'palette-extractor',
     PALETTE_PRESENTER: 'palette-presenter',
     SAVE_PALETTE: 'save-palette',
-    USER_INTERFACE: 'user-interface',
+    PALETTE_PICKER: 'palette-picker',
 }
 
