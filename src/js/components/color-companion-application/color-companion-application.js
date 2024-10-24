@@ -1,7 +1,10 @@
 /**
  * Color Companion Main Application
  */
+
 import { COMPONENTS } from '../../constants/components'
+import { EVENTS } from '../../constants/events'
+import BaseComponent from '../BaseComponent'
 import '../image-uploader'
 import '../image-presenter'
 import '../palette-extractor'
@@ -9,10 +12,8 @@ import '../palette-presenter'
 import '../palette-picker'
 import ColorPalette from '../../model/ColorPalette'
 import PaletteExtractor from '../../utils/PaletteExtractor'
-import html2canvas from 'html2canvas'
+import PaletteImageSaver from '../../utils/PaletteImageSaver'
 import Toast from '../../utils/Toast'
-import { EVENTS } from '../../constants/events'
-import BaseComponent from '../BaseComponent'
 
 // Define html template
 const template = document.createElement('template')
@@ -47,6 +48,8 @@ customElements.define(COMPONENTS.COLOR_COMPANION_APPLICATION,
 
         #palettePicker
 
+        #paletteSaver
+
         #toast
 
         constructor() {
@@ -62,6 +65,7 @@ customElements.define(COMPONENTS.COLOR_COMPANION_APPLICATION,
             this.#imageUploader = this.shadowRoot.querySelector('#image-uploader')
 
             this.#paletteExtractor = new PaletteExtractor()
+            this.#paletteSaver = new PaletteImageSaver()
             this.#toast = new Toast()
 
         }
@@ -179,16 +183,12 @@ customElements.define(COMPONENTS.COLOR_COMPANION_APPLICATION,
         }
 
         async #savePalette(event) {
-            const palette = event.detail
-            const paletteToCanvas = await html2canvas(palette)
-
-            const image = new Image()
-            image.src = paletteToCanvas.toDataURL()
-
-            const link = document.createElement('a')
-            link.href = image.src
-            link.download = 'palette.png'
-            link.click()
+            try {
+                const palette = event.detail
+                this.#paletteSaver.saveImage('palette', palette)   
+            } catch (error) {
+                this.#displayToastError(error.message)
+            }
         }
         
         #displayToastMessage(message) {
