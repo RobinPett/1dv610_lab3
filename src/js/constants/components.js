@@ -5,7 +5,7 @@ export const COMPONENTS = {
     IMAGE_PRESENTER: 'image-presenter',
     PALETTE_EXTRACTOR: 'palette-extractor',
     PALETTE_PRESENTER: 'palette-presenter',
-    SAVE_PALETTE: 'save-palette',
+    SAVE_PALETTE_BUTTON: 'save-palette-button',
     PALETTE_PICKER: 'palette-picker',
 }
 
