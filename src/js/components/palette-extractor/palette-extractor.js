@@ -5,6 +5,7 @@
 import { ColorPaletteExtractor } from "color-palette-extractor"
 import { COMPONENTS } from "../../constants/components"
 import { EVENTS } from "../../constants/events"
+import BaseComponent from "../BaseComponent"
 
 // Define html template
 const template = document.createElement('template')
@@ -21,7 +22,7 @@ template.innerHTML = `
 `
 
 customElements.define(COMPONENTS.PALETTE_EXTRACTOR,
-    class extends HTMLElement {        
+    class extends BaseComponent {        
         #paletteExtractorModule 
 
         #imageElement

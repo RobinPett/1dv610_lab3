@@ -1,4 +1,5 @@
 import Toastify from 'toastify-js'
+import "toastify-js/src/toastify.css"
 
 /**
  * Sets up and displays toast messages.

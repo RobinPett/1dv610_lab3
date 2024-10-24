@@ -4,6 +4,7 @@
 
 import { COMPONENTS } from "../../constants/components"
 import { EVENTS } from "../../constants/events"
+import BaseComponent from "../BaseComponent"
 
 // Define html template
 const template = document.createElement('template')
@@ -26,7 +27,7 @@ template.innerHTML = `
 `
 
 customElements.define(COMPONENTS.IMAGE_PRESENTER,
-    class extends HTMLElement {
+    class extends BaseComponent {
         #imagePresenter
 
         #image

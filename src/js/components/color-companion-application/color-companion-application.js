@@ -9,9 +9,9 @@ import '../palette-presenter'
 import '../palette-picker'
 import ColorPalette from '../../model/ColorPalette'
 import html2canvas from 'html2canvas'
-import Toast from '../utils/Toast'
-import "toastify-js/src/toastify.css"
+import Toast from '../../utils/Toast'
 import { EVENTS } from '../../constants/events'
+import BaseComponent from '../BaseComponent'
 
 // Define html template
 const template = document.createElement('template')
@@ -33,7 +33,7 @@ template.innerHTML = `
 `
 
 customElements.define(COMPONENTS.COLOR_COMPANION_APPLICATION,
-    class extends HTMLElement {
+    class extends BaseComponent {
         #colorCompanionApp
 
         #imageUploader
@@ -75,13 +75,8 @@ customElements.define(COMPONENTS.COLOR_COMPANION_APPLICATION,
             this.#colorCompanionApp.addEventListener(EVENTS.CREATED_PALETTE, (event) => this.#handleCreatedPalette(event))
             this.#colorCompanionApp.addEventListener(EVENTS.NEW_PALETTE, (event) => this.#getNewPalette(event))
             this.#colorCompanionApp.addEventListener(EVENTS.SAVE_PALETTE, (event) => this.#savePalette(event))
-            this.#colorCompanionApp.addEventListener(EVENTS.HEX_COPIED, () => this.#displayToastMessage('Color copied')) // Flash message
-        }
-
-        /**
-         * Called when component is disconnected from the DOM
-         */
-        disconnectedCallback() {
+            this.#colorCompanionApp.addEventListener(EVENTS.HEX_COPIED, () => this.#displayToastMessage('Color copied'))
+            this.#colorCompanionApp.addEventListener(EVENTS.ERROR, (event) => this.#displayToastMessage(event.detail))
         }
 
         #handleDroppedFile(event) {
@@ -197,7 +192,7 @@ customElements.define(COMPONENTS.COLOR_COMPANION_APPLICATION,
             link.download = 'palette.png'
             link.click()
         }
-
+        
         #displayToastMessage(message) {
             this.#toast.showMessage(message)
         }
