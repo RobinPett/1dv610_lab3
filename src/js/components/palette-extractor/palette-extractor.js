@@ -52,7 +52,7 @@ customElements.define(COMPONENTS.PALETTE_EXTRACTOR,
          */
 
         set imageElement(imageElement) {
-            if ((!imageElement instanceof HTMLImageElement)) {
+            if (!(imageElement instanceof HTMLImageElement)) {
                 throw new TypeError('imageElement must be of type HTMLImageElement.')
             }
 
@@ -73,7 +73,7 @@ customElements.define(COMPONENTS.PALETTE_EXTRACTOR,
             const pixels = await image.getPixels()
 
             this.#palette = this.#paletteExtractorModule.startExtraction(pixels, 5)
-            const extractedPalette = this.#palette.getColorPalette()
+            const extractedPalette = this.#palette.getPalette()
 
             return extractedPalette
         }
@@ -85,7 +85,7 @@ customElements.define(COMPONENTS.PALETTE_EXTRACTOR,
 
         getNewPalette(palette) {
             if (palette === 'default') {
-                return this.#palette.getColorPalette()
+                return this.#palette.getPalette()
             }
 
             if (palette === 'bright') {

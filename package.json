@@ -14,7 +14,7 @@
     "vite": "^5.4.8"
   },
   "dependencies": {
-    "color-palette-extractor": "^1.1.0",
+    "color-palette-extractor": "^2.0.1",
     "html2canvas": "^1.4.1",
     "toastify-js": "^1.12.0"
   }
