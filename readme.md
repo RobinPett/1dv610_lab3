@@ -1,4 +1,4 @@
-## Color palette - Webapp
+## ColorCompanion - Web application
 
 ### Description
 
