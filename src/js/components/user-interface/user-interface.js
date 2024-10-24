@@ -48,8 +48,6 @@ template.innerHTML = `
 
 customElements.define(COMPONENTS.USER_INTERFACE,
     class extends HTMLElement {        
-        #userInterface
-
         #defaultButton
         #brightButton
         #darkButton
@@ -64,7 +62,6 @@ customElements.define(COMPONENTS.USER_INTERFACE,
                 .appendChild(template.content.cloneNode(true))
 
             // Get element in shadow root
-            this.#userInterface = this.shadowRoot.querySelector('#user-interface')
             this.#defaultButton = this.shadowRoot.querySelector('#default')
             this.#brightButton = this.shadowRoot.querySelector('#bright')
             this.#darkButton = this.shadowRoot.querySelector('#dark')

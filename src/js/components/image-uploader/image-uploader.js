@@ -74,8 +74,6 @@ customElements.define(COMPONENTS.IMAGE_UPLOADER,
         #imageUploader
 
         #imageFileInput
-        
-        #image
 
         constructor() {
             super()
@@ -87,7 +85,6 @@ customElements.define(COMPONENTS.IMAGE_UPLOADER,
 
             // Get element in shadow root
             this.#imageUploader = this.shadowRoot.querySelector('#image-uploader')
-            this.#image = this.shadowRoot.querySelector('#image')
             this.#imageFileInput = this.shadowRoot.querySelector('#image-file-input')
         }
 
@@ -113,11 +110,11 @@ customElements.define(COMPONENTS.IMAGE_UPLOADER,
          * Prevent the browser to do anything with items dragged or dropped in this component.
          */
         #preventDefaultBehaviour() {
-           const events =  ['dragenter', 'dragover', 'dragleave', 'drop']
+            const events =  ['dragenter', 'dragover', 'dragleave', 'drop']
 
-           events.forEach(event => {
+            events.forEach(event => {
                 this.#imageUploader.addEventListener(event, this.#preventDefaults, false) // TODO - Behövs detta ens?
-           })
+            })
         }
 
         #preventDefaults(event) {

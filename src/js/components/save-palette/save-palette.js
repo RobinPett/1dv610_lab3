@@ -36,7 +36,6 @@ template.innerHTML = `
 
 customElements.define(COMPONENTS.SAVE_PALETTE,
     class extends HTMLElement {
-        #savePalette
 
         constructor() {
             super()
@@ -45,9 +44,6 @@ customElements.define(COMPONENTS.SAVE_PALETTE,
             // Appens template to shadow Root
             this.attachShadow({ mode: 'open' })
                 .appendChild(template.content.cloneNode(true))
-
-            // Get element in shadow root
-            this.#savePalette = this.shadowRoot.querySelector('#save-palette')
         }
 
 

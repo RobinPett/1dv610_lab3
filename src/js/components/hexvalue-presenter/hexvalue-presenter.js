@@ -53,8 +53,6 @@ template.innerHTML = `
 
 customElements.define(COMPONENTS.HEXVALUE_PRESENTER,
     class extends HTMLElement {        
-        #hexValuePresenter
-
         #hexText
 
         /**
@@ -71,7 +69,6 @@ customElements.define(COMPONENTS.HEXVALUE_PRESENTER,
                 .appendChild(template.content.cloneNode(true))
 
             // Get element in shadow root
-            this.#hexValuePresenter = this.shadowRoot.querySelector('#hexvalue-presenter')
             this.#hexText = this.shadowRoot.querySelector('#hex-text')
 
         }
