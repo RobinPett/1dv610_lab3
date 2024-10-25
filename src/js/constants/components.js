@@ -7,4 +7,3 @@ export const COMPONENTS = {
     SAVE_PALETTE_BUTTON: 'save-palette-button',
     PALETTE_PICKER: 'palette-picker',
 }
-
