@@ -9,6 +9,8 @@ With this tool you can extract color palettes from an image with colors you alre
 The palette can then be saved to an image so you can import it into a design software and use a colordropper to get the colors.
 You can also get each color manually via the hex codes under each color in the palette. Click a hex code and paste it into a css file or design software to use it.
 
+See [vision](vision.md) and [requirements](kravspecifikation.md) to see tha plan of this application. - In swedish.
+
 ### Usage
 #### Demo video
 [![Demo video](.readme/demo.jpg)](https://youtu.be/vk7zFJTC2Zc)
