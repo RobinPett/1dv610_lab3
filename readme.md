@@ -11,7 +11,7 @@ You can also get each color manually via the hex codes under each color in the p
 
 ### Usage
 #### Demo video
-[![Demo video](https://img.youtube.com/vi/vk7zFJTC2Zc/0.jpg)](https://youtu.be/vk7zFJTC2Zc)
+[![Demo video](.readme/demo.jpg)](https://youtu.be/vk7zFJTC2Zc)
 
 #### How to use 
 - Press the upload icon / Drag & Drop an image on it
@@ -20,8 +20,8 @@ You can also get each color manually via the hex codes under each color in the p
 - Press "Save Palette" to save image
 
 
-#### Run it
-Try it! - [Color Companion](https://colorcompanion.netlify.app/)
+#### Try it
+[Color Companion](https://colorcompanion.netlify.app/)
 
 #### Run it locally:
 Clone it!
