@@ -42,7 +42,7 @@ customElements.define(COMPONENTS.SAVE_PALETTE_BUTTON,
             super()
 
             // Attach a shadow DOM tree to element
-            // Appens template to shadow Root
+            // Appends template to shadow Root
             this.attachShadow({ mode: 'open' })
                 .appendChild(template.content.cloneNode(true))
         }

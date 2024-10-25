@@ -31,7 +31,7 @@ class PaletteExtractor {
             this.#imageElement = imageElement
             this.#palettePromise = this.#startExtraction() 
         } catch (error) {
-            this.dispatchError('Failed to load imageElement in extractor' + error.message)
+            throw new Error('Failed to load imageElement in extractor' + error.message)
         }
     } 
 

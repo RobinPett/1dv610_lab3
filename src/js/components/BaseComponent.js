@@ -1,5 +1,5 @@
 /**
- * Base component component.
+ * Base component.
  */
 
 import { EVENTS } from "../constants/events"

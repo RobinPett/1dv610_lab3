@@ -58,7 +58,7 @@ customElements.define(COMPONENTS.PALETTE_PICKER,
             super()
 
             // Attach a shadow DOM tree to element
-            // Appens template to shadow Root
+            // Appends template to shadow Root
             this.attachShadow({ mode: 'open' })
                 .appendChild(template.content.cloneNode(true))
 

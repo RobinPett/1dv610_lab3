@@ -1,10 +1,8 @@
+import html2canvas from 'html2canvas'
 
 /**
  * Handles saving palettes as an image.
  */
-
-import html2canvas from 'html2canvas'
-
 class PaletteImageSaver {
 
     /**

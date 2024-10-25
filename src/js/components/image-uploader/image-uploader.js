@@ -80,7 +80,7 @@ customElements.define(COMPONENTS.IMAGE_UPLOADER,
             super()
 
             // Attach a shadow DOM tree to element
-            // Appens template to shadow Root
+            // Appends template to shadow Root
             this.attachShadow({ mode: 'open' })
                 .appendChild(template.content.cloneNode(true))
 
@@ -106,7 +106,7 @@ customElements.define(COMPONENTS.IMAGE_UPLOADER,
             const events =  ['dragenter', 'dragover', 'dragleave', 'drop']
 
             events.forEach(event => {
-                this.#imageUploader.addEventListener(event, this.#preventDefaults, false) // TODO - Behövs detta ens?
+                this.#imageUploader.addEventListener(event, this.#preventDefaults, false)
             })
         }
 
@@ -120,10 +120,10 @@ customElements.define(COMPONENTS.IMAGE_UPLOADER,
                 const filesDropped = event.dataTransfer.items
 
                 if (filesDropped) {
-                    const rawFile = filesDropped[0] // 1st file
+                    const firstDroppedFile = filesDropped[0]
         
-                    this.#checkFileValidity(rawFile)
-                    const file = rawFile.getAsFile()
+                    this.#checkFileValidity(firstDroppedFile)
+                    const file = firstDroppedFile.getAsFile()
                     this.#sendFileUploadedEvent(file)
                 }
             } catch (error) {
@@ -137,9 +137,9 @@ customElements.define(COMPONENTS.IMAGE_UPLOADER,
 
         #handleChosenFile(event) {
             try {
-                const file = event.target.files[0] // 1st file
-                this.#checkFileValidity(file)
-                this.#sendFileUploadedEvent(file)   
+                const firstDroppedFile = event.target.files[0] // 1st file
+                this.#checkFileValidity(firstDroppedFile)
+                this.#sendFileUploadedEvent(firstDroppedFile)   
             } catch (error) {
                 this.dispatchError(error.message)
             }
