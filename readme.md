@@ -12,7 +12,7 @@ You can also get each color manually via the hex codes under each color in the p
 See [vision](vision.md) and [requirements](kravspecifikation.md) to see tha plan of this application. - In swedish.
 
 ### Usage
-#### Demo video
+#### Demo video - Opens in same tab
 [![Demo video](.readme/demo.jpg)](https://youtu.be/vk7zFJTC2Zc)
 
 #### How to use 
