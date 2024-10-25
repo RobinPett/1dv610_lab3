@@ -55,7 +55,7 @@ customElements.define(COMPONENTS.COLOR_COMPANION_APPLICATION,
             super()
 
             // Attach a shadow DOM tree to element
-            // Appens template to shadow Root
+            // Appends template to shadow Root
             this.attachShadow({ mode: 'open' })
                 .appendChild(template.content.cloneNode(true))
 
