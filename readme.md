@@ -69,5 +69,8 @@ This application is built with Javascript ES6 and is dependent on the following 
 - vite
 - eslint
 
+### Test report
+See latest - In swedish - [testreport](testrapport.md)
+
 ### License
 MIT @Robin Pettersson 2024
