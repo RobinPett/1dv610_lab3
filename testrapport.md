@@ -1,5 +1,48 @@
 ### Testrapport 
 Samlade testfall: [Testfall](testfall.md)
+> * 25/10/2024
+> * ColorCompanion - Version 1.0.0
+> * Miljö: Produktion - Netlify
+> * Webbläsare: Firefox 131.0.3 (64-bitars)
+
+| Test               | UC1 |
+|--------------------|-----|
+| 1.1                | OK  |
+| Coverage & Success | 1/1 |
+
+| Test               | UC2 |
+|--------------------|-----|
+| 2.1                | OK  |
+| 2.2                | OK  |
+| 2.3                | OK  |
+| 2.4                | OK  |
+| Coverage & Success | 4/4 |
+
+| Test               | UC3 |
+|--------------------|-----|
+| 3.1                | OK  |
+| 3.2                | OK  |
+| 3.3                | OK  |
+| 3.4                | OK  |
+| 3.5                | OK  |
+| 3.6                | OK  |
+| 3.7                | OK  |
+| Coverage & Success | 7/7 |
+
+| Test               | UC4 |
+|--------------------|-----|
+| 4.1                | OK  |
+| 4.2                | OK  |
+| 4.3                | OK  |
+| Coverage & Success | 3/3 |
+
+| Test               | UC5 |
+|--------------------|-----|
+| 5.1                | OK  |
+| Coverage & Success | 1/1 |
+
+
+
 
 # UC1 - Navigering
 
