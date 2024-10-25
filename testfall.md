@@ -88,6 +88,70 @@
 > * Ingen färgpalett visas
 > * Ett Error meddelande visas 
 
+> ## Testfall 3.3 - Lyckad visning av Muted palett
+>
+> ### Input
+>
+> * Testfall 2.1 eller Testfall 2.3 - Lyckad bild uppladdning
+> * Tryck på "Muted" knappen
+>
+> ### Output
+>
+> * "Muted" knappen markeras
+> * En färgpalett med 5 färger visas
+> * Under paletten syns en spara knapp
+
+> ## Testfall 3.4 - Lyckad visning av Dark palett
+>
+> ### Input
+>
+> * Testfall 2.1 eller Testfall 2.3 - Lyckad bild uppladdning
+> * Tryck på "Dark" knappen
+>
+> ### Output
+>
+> * "Dark" knappen markeras
+> * En färgpalett med 5 färger visas
+> * Under paletten syns en spara knapp
+
+> ## Testfall 3.5 - Lyckad visning av Bright palett
+>
+> ### Input
+>
+> * Testfall 2.1 eller Testfall 2.3 - Lyckad bild uppladdning
+> * Tryck på "Bright" knappen
+>
+> ### Output
+>
+> * "Bright" knappen markeras
+> * En färgpalett med 5 färger visas
+> * Under paletten syns en spara knapp
+
+> ## Testfall 3.6 - Lyckad visning av Default palett
+>
+> ### Input
+>
+> * Testfall 2.1 eller Testfall 2.3 - Lyckad bild uppladdning
+> * Tryck på "Default" knappen
+>
+> ### Output
+>
+> * "Default" knappen markeras
+> * En färgpalett med 5 färger visas
+> * Under paletten syns en spara knapp
+
+> ## Testfall 3.7 - Lyckad visning av palett med få färger
+>
+> ### Input
+>
+> * Testfall 2.1 eller Testfall 2.3 - Lyckad bild uppladdning - Med få färger - 3st
+>
+> ### Output
+>
+> * En färgpalett med 5 färger visas
+> * Den tredje färgen upprepas två gånger
+> * Under paletten syns en spara knapp
+
 
 # UC4 - Kopiera HEX värden
 
@@ -101,7 +165,7 @@
 >
 > * Knappar med hex värden visas under färgen
 
-> ## Testfall 4.2 - Lyckad kopiering av HEX vörde
+> ## Testfall 4.2 - Lyckad kopiering av HEX värde
 >
 > ### Input
 >
@@ -112,6 +176,17 @@
 >
 > * Info meddelande visar att kopiering lyckades
 > * HEX värdet ligger i urklipp och kan klistras in - ctrl + v
+
+> ## Testfall 4.3 - Lyckad inklistring av HEX värde
+>
+> ### Input
+>
+> * Testfall 4.1 - Lyckad visning av HEX värde
+> * Testfall 4.2 - Lyckad kopiering av HEX värde
+> * Klistra in hex värdet i ett textfält - ctrl + v
+> ### Output
+>
+> * HEX värdet klistras in
 
 # UC5 - Nedladdning av färgpalett
 
