@@ -11,9 +11,18 @@ You can also get each color manually via the hex codes under each color in the p
 
 ### Usage
 - Demo video
-- Try it! - [Color Companion](https://colorcompanion.netlify.app/)
 
-#### To use locally:
+#### How to use 
+- Press the upload icon / Drag & Drop an image on it
+- Select Default, Bright, Dark or Muted palette
+- Copy hex codes 
+- Press "Save Palette" to save image
+
+
+#### Run it
+Try it! - [Color Companion](https://colorcompanion.netlify.app/)
+
+#### Run it locally:
 Clone it!
 
 ```
