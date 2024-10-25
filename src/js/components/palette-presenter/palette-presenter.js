@@ -87,7 +87,7 @@ customElements.define(COMPONENTS.PALETTE_PRESENTER,
         }
 
         #getHexValues() {
-            this.#hexValues = this.#colorPalette.convertRgbToHex()
+            this.#hexValues = this.#colorPalette.getHex()
         }
 
         #displayPaletteAsDiv() {

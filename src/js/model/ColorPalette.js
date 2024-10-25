@@ -1,4 +1,3 @@
-
 /**
  * Custom type for a Color Palette
  */
@@ -54,10 +53,9 @@ class ColorPalette {
      * Convert red green and blue to hexadecimal.
      * Example rgb: 255, 0, 0 = hex: #ff0000
      */
-    convertRgbToHex() {
+    getHex() {
         const hexValues = []
         this.palette.forEach(color => {
-            console.log(color)
             const { red, green, blue } = color
 
             const redHex = red.toString(16).padStart(2, '0')
