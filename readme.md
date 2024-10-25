@@ -10,7 +10,8 @@ The palette can then be saved to an image so you can import it into a design sof
 You can also get each color manually via the hex codes under each color in the palette. Click a hex code and paste it into a css file or design software to use it.
 
 ### Usage
-- Demo video
+#### Demo video
+[![Demo video](https://img.youtube.com/vi/vk7zFJTC2Zc/0.jpg)](https://youtu.be/vk7zFJTC2Zc)
 
 #### How to use 
 - Press the upload icon / Drag & Drop an image on it
