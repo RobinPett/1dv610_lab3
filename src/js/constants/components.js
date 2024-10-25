@@ -3,7 +3,6 @@ export const COMPONENTS = {
     HEXVALUE_PRESENTER: 'hexvalue-presenter',
     IMAGE_UPLOADER: 'image-uploader',
     IMAGE_PRESENTER: 'image-presenter',
-    PALETTE_EXTRACTOR: 'palette-extractor',
     PALETTE_PRESENTER: 'palette-presenter',
     SAVE_PALETTE_BUTTON: 'save-palette-button',
     PALETTE_PICKER: 'palette-picker',
